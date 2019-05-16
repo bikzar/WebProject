@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+	id="WebApp_ID" version="3.1">
+
+	<display-name>Payment System 1.0</display-name>
+
+	<servlet>
+		<servlet-name>PaymentSystem</servlet-name>
+		<servlet-class>by.epam.webproject.voitenkov.controller.MainController</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>PaymentSystem</servlet-name>
+		<url-pattern>/start</url-pattern>
+	</servlet-mapping>
+
+	<filter-mapping>
+		<filter-name>isLogin</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>isLogin</filter-name>
+		<filter-class>by.epam.webproject.voitenkov.controller.filter.IsUserLoginFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>Encoding</filter-name>
+		<filter-class>by.epam.webproject.voitenkov.controller.filter.EncodingParametrsFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>Encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+
+	<filter-mapping>
+		<filter-name>LocaleSelecter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>LocaleSelecter</filter-name>
+		<filter-class>by.epam.webproject.voitenkov.controller.filter.SelectLocaleFilter</filter-class>
+	</filter>
+	
+	<error-page>
+		<exception-type>javax.servlet.ServletException</exception-type>
+		<location>/JSP/StartErrorPage.jsp</location>
+	</error-page>
+
+	<session-config>
+		<session-timeout>10</session-timeout>
+	</session-config>
+
+</web-app>
