@@ -2,6 +2,7 @@ package by.epam.webproject.voitenkov.model.builder.statementbuilder;
 
 import by.epam.webproject.voitenkov.model.builder.statementbuilder.implementation.FromStatementBankAccountBuilder;
 import by.epam.webproject.voitenkov.model.builder.statementbuilder.implementation.FromStatementCreditCardBuilder;
+import by.epam.webproject.voitenkov.model.builder.statementbuilder.implementation.FromStatementTransactionBuilder;
 import by.epam.webproject.voitenkov.model.builder.statementbuilder.implementation.FromStatementUserBuilder;
 
 /**
@@ -10,10 +11,13 @@ import by.epam.webproject.voitenkov.model.builder.statementbuilder.implementatio
  *         Apr 27, 2019
  */
 public class FromStatementBuilderFactory {
-	
+
 	private FromStatementCreditCardBuilder creditCardBuilder = new FromStatementCreditCardBuilder();
-	private FromStatementBankAccountBuilder bankAccBuilder = new FromStatementBankAccountBuilder(null);
-	private FromStatementUserBuilder userBuilder = new FromStatementUserBuilder(null);
+	private FromStatementBankAccountBuilder bankAccBuilder = new FromStatementBankAccountBuilder(
+			null);
+	private FromStatementUserBuilder userBuilder = new FromStatementUserBuilder(
+			null);
+	private FromStatementTransactionBuilder transactionBuilder = new FromStatementTransactionBuilder();
 
 	private FromStatementBuilderFactory() {
 	}
@@ -37,4 +41,9 @@ public class FromStatementBuilderFactory {
 	public FromStatementUserBuilder getUserBuilder() {
 		return userBuilder;
 	}
+
+	public FromStatementTransactionBuilder getTransactionBuilder() {
+		return transactionBuilder;
+	}
+
 }

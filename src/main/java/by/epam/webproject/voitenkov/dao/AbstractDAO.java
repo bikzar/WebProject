@@ -127,7 +127,7 @@ public abstract class AbstractDAO<T> implements DAO<T> {
 
 			} catch (SQLException e) {
 				logger.error(
-						"SQLException try to get preparedStatemen in executeUpdateQuery() methood AbstractDao calss");
+						"SQLException in executeUpdateQuery() methood AbstractDao calss");
 
 				throw new DaoException(e);
 

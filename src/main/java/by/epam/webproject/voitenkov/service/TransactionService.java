@@ -7,9 +7,19 @@ import by.epam.webproject.voitenkov.service.serviceexception.ServiceLevelExcepti
 /**
  * @author Sergey Voitenkov
  *
- * May 11, 2019
+ *         May 11, 2019
  */
 public interface TransactionService {
-	
-	public boolean payOperation(HttpServletRequest request) throws ServiceLevelException;
+
+	public boolean payOperation(HttpServletRequest request)
+			throws ServiceLevelException;
+
+	public void calculateCommision(HttpServletRequest request)
+			throws ServiceLevelException;
+
+	boolean makeReplenishOperation(HttpServletRequest request)
+			throws ServiceLevelException;
+
+	public void loadHistory(HttpServletRequest request)
+			throws ServiceLevelException;
 }

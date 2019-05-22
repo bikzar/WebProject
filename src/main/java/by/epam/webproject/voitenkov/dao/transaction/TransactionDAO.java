@@ -1,6 +1,7 @@
 package by.epam.webproject.voitenkov.dao.transaction;
 
 
+import by.epam.webproject.voitenkov.dao.daoexception.DaoException;
 import by.epam.webproject.voitenkov.model.entity.Transaction;
 
 /**
@@ -15,6 +16,8 @@ public interface TransactionDAO {
 	 * @return false - if transaction is null or some problem with connection.
 	 * @throws CantCreateConnectinPoolException
 	 */
-	public boolean save(Transaction transaction);
+	public boolean save(Transaction transaction) throws DaoException;
+	
+	public boolean delete(Transaction entity) throws DaoException;
 	
 }

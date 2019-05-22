@@ -17,7 +17,7 @@ public interface DAO<T> {
 	T getById(long id) throws DaoException;
 
 	/**
-	 * @return Entity list or Empty entity list (if no connection to DB)
+	 * @return Entity list or null (if no connection to DB)
 	 * @throws DaoException
 	 */
 	List<T> getAll(long id) throws DaoException;

@@ -1,10 +1,10 @@
-package by.epam.webproject.voitenkov.controller.command.implementation.gotopagecommand;
+package by.epam.webproject.voitenkov.controller.command.implementation.postcommand.transactioncommand;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
-import by.epam.webproject.voitenkov.service.BankAccountService;
+import by.epam.webproject.voitenkov.service.TransactionService;
 import by.epam.webproject.voitenkov.service.serviceexception.ServiceLevelException;
 import by.epam.webproject.voitenkov.util.ConstantConteiner;
 import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
@@ -12,35 +12,37 @@ import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
 /**
  * @author Sergey Voitenkov
  *
- *         May 13, 2019
+ *         May 9, 2019
  */
-public class GoToPayPageCommand extends AbstractCommand<BankAccountService> {
+public class ReplenishAccountCommand
+		extends AbstractCommand<TransactionService> {
 
-	public GoToPayPageCommand(BankAccountService service) {
+	public ReplenishAccountCommand(TransactionService service) {
 		super(service);
 	}
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
-		String page = ConfigurationReader
-				.getProperty(ConstantConteiner.GO_TO_PAY_PAGE);
-
+		String nextPage = ConfigurationReader
+				.getProperty(ConstantConteiner.USER_PAGE);
+		
 		try {
-
-			this.getService().loadPayForm(req);
-
+			
+			this.getService().makeReplenishOperation(req);
+			
 		} catch (ServiceLevelException e) {
-
-			page = ConfigurationReader
-					.getProperty(ConstantConteiner.ERROR_PAGE);
-
+			
 			req.setAttribute(
 					ConfigurationReader.getProperty(
 							ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
 					e.getMessage());
+
+			nextPage = ConfigurationReader
+					.getProperty(ConstantConteiner.ERROR_PAGE);
 		}
 
-		return page;
+		return nextPage;
 	}
+
 }

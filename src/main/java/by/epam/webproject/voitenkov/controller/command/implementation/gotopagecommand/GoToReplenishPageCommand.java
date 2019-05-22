@@ -12,19 +12,19 @@ import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
 /**
  * @author Sergey Voitenkov
  *
- *         May 13, 2019
+ * May 18, 2019
  */
-public class GoToPayPageCommand extends AbstractCommand<BankAccountService> {
-
-	public GoToPayPageCommand(BankAccountService service) {
+public class GoToReplenishPageCommand extends AbstractCommand<BankAccountService> {
+	
+	public GoToReplenishPageCommand(BankAccountService service) {
 		super(service);
 	}
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp) {
-
+		
 		String page = ConfigurationReader
-				.getProperty(ConstantConteiner.GO_TO_PAY_PAGE);
+				.getProperty(ConstantConteiner.GO_TO_REPLANISH_PAGE);
 
 		try {
 
@@ -43,4 +43,5 @@ public class GoToPayPageCommand extends AbstractCommand<BankAccountService> {
 
 		return page;
 	}
+
 }

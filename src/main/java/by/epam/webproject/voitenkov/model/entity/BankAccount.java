@@ -65,7 +65,7 @@ public class BankAccount {
 	}
 
 	public void setAccountMoney(double accountMoney) {
-		if (accountMoney > 0) {
+		if (accountMoney >= 0) {
 			this.accountMoney = accountMoney;
 		}
 	}
@@ -152,7 +152,4 @@ public class BankAccount {
 				+ currencyType + ", userId=" + userId + ", creditCardList="
 				+ creditCardList + "]";
 	}
-
-
-
 }

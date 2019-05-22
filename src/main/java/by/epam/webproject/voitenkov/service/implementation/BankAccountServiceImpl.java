@@ -83,7 +83,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 		}
 	}
 
-	public void loadPayFrom(HttpServletRequest req)
+	public void loadPayForm(HttpServletRequest req)
 			throws ServiceLevelException {
 
 		if (req != null) {

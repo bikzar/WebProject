@@ -6,5 +6,5 @@ package by.epam.webproject.voitenkov.model.entity.enumeration;
  * Apr 14, 2019
  */
 public enum OperationType {
-	PAY, ADDMONEY;
+	PAY, REPLENISHMENT, COMMISION;
 }

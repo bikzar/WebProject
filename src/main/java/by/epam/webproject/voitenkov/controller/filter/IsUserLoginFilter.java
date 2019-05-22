@@ -36,8 +36,13 @@ public class IsUserLoginFilter implements Filter {
 
 		String regex = ConfigurationReader
 				.getProperty(ConstantConteiner.URL_REGEX_FIRST_ENTER);
+		
+		String contentRegex = ConfigurationReader
+				.getProperty(ConstantConteiner.CONTENT_REGEX);
 
 		boolean isAvailablePath = Pattern.matches(regex, currentPath);
+		
+		boolean isContentPath = Pattern.matches(contentRegex, currentPath);
 
 		String logInComand = ConfigurationReader
 				.getProperty(ConstantConteiner.LOGIN_COMMAND);
@@ -64,7 +69,9 @@ public class IsUserLoginFilter implements Filter {
 				&& (session.getAttribute(ConfigurationReader
 						.getProperty(ConstantConteiner.USER))) != null;
 
-		if (isSessionActive || isCommand || isAvailablePath) {
+
+		if ((isSessionActive && isAvailablePath)
+				|| (isCommand && isAvailablePath) || isContentPath) {
 
 			chain.doFilter(request, response);
 

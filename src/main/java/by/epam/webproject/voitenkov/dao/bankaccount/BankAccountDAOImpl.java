@@ -96,7 +96,7 @@ public class BankAccountDAOImpl extends AbstractDAO<BankAccount>
 
 			Object[] bankAccountElements = { entity.isBlock(),
 					entity.getAccountMoney(),
-					entity.getCurrencyType().ordinal(), entity.getUserId(),
+					entity.getCurrencyType().ordinal()+1, entity.getUserId(),
 					entity.getAccountId() };
 
 			result = executeUpdateQuery(query, bankAccountElements);

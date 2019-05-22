@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import by.epam.webproject.voitenkov.controller.command.Command;
 import by.epam.webproject.voitenkov.dao.connectionpool.ConnectionPool;
+import by.epam.webproject.voitenkov.util.ConstantConteiner;
+import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
 
 /**
  * @author Sergey Voitenkov
@@ -44,9 +46,15 @@ public class MainController extends HttpServlet {
 			nextPage = command.execute(request, response);
 		}
 
+		if (nextPage == null) {
+			nextPage = ConfigurationReader
+					.getProperty(ConstantConteiner.LOGIN_PAGE);
+		}
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
 
 		dispatcher.forward(request, response);
+
 	}
 
 	@Override

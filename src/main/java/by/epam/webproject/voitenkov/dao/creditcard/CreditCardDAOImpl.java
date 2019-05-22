@@ -132,5 +132,4 @@ public class CreditCardDAOImpl extends AbstractDAO<CreditCard>
 
 		return result;
 	}
-
 }

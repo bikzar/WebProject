@@ -1,7 +1,10 @@
 package by.epam.webproject.voitenkov.model.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
+import by.epam.webproject.voitenkov.model.entity.enumeration.CurrencyType;
 import by.epam.webproject.voitenkov.model.entity.enumeration.OperationType;
 
 /**
@@ -19,14 +22,41 @@ public class Transaction implements Serializable {
 	private OperationType operationType;
 	private long cardId;
 	private double sum;
+	private CurrencyType currencyType;
+	private LocalDateTime dateTime;
+
 
 	public Transaction(long transactionId, long resursId, long destinationId,
-			OperationType operationType, long cardId, double sum) {
+			OperationType operationType, long cardId, double sum,
+			CurrencyType currencyType, LocalDateTime dateTime) {
+		super();
 		this.transactionId = transactionId;
 		this.resursId = resursId;
 		this.destinationId = destinationId;
 		this.operationType = operationType;
 		this.cardId = cardId;
+		this.sum = sum;
+		this.currencyType = currencyType;
+		this.dateTime = dateTime;
+	}
+
+	public LocalDateTime getDateTime() {
+		return dateTime;
+	}
+
+	public void setDateTime(LocalDateTime dateTime) {
+		this.dateTime = dateTime;
+	}
+
+	public CurrencyType getCurrencyType() {
+		return currencyType;
+	}
+
+	public void setCurrencyType(CurrencyType currencyType) {
+		this.currencyType = currencyType;
+	}
+
+	public void setSum(double sum) {
 		this.sum = sum;
 	}
 
@@ -90,23 +120,10 @@ public class Transaction implements Serializable {
 		}
 	}
 
-
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + (int) (cardId ^ (cardId >>> 32));
-		result = prime * result
-				+ (int) (destinationId ^ (destinationId >>> 32));
-		result = prime * result
-				+ ((operationType == null) ? 0 : operationType.hashCode());
-		result = prime * result + (int) (resursId ^ (resursId >>> 32));
-		long temp;
-		temp = Double.doubleToLongBits(sum);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result
-				+ (int) (transactionId ^ (transactionId >>> 32));
-		return result;
+		return Objects.hash(cardId, currencyType, dateTime, destinationId,
+				operationType, resursId, sum, transactionId);
 	}
 
 	@Override
@@ -121,26 +138,14 @@ public class Transaction implements Serializable {
 			return false;
 		}
 		Transaction other = (Transaction) obj;
-		if (cardId != other.cardId) {
-			return false;
-		}
-		if (destinationId != other.destinationId) {
-			return false;
-		}
-		if (operationType != other.operationType) {
-			return false;
-		}
-		if (resursId != other.resursId) {
-			return false;
-		}
-		if (Double.doubleToLongBits(sum) != Double
-				.doubleToLongBits(other.sum)) {
-			return false;
-		}
-		if (transactionId != other.transactionId) {
-			return false;
-		}
-		return true;
+		return cardId == other.cardId && currencyType == other.currencyType
+				&& Objects.equals(dateTime, other.dateTime)
+				&& destinationId == other.destinationId
+				&& operationType == other.operationType
+				&& resursId == other.resursId
+				&& Double.doubleToLongBits(sum) == Double
+						.doubleToLongBits(other.sum)
+				&& transactionId == other.transactionId;
 	}
 
 	@Override
@@ -148,6 +153,7 @@ public class Transaction implements Serializable {
 		return "Transaction [transactionId=" + transactionId + ", resursId="
 				+ resursId + ", destinationId=" + destinationId
 				+ ", operationType=" + operationType + ", cardId=" + cardId
-				+ "]";
+				+ ", sum=" + sum + ", currencyType=" + currencyType
+				+ ", dateTime=" + dateTime + "]";
 	}
 }

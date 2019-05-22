@@ -3,7 +3,7 @@ package by.epam.webproject.voitenkov.controller.command.implementation.postcomma
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import by.epam.webproject.voitenkov.controller.command.implementation.BankAccountCommand;
+import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
 import by.epam.webproject.voitenkov.service.BankAccountService;
 import by.epam.webproject.voitenkov.service.serviceexception.ServiceLevelException;
 import by.epam.webproject.voitenkov.util.ConstantConteiner;
@@ -14,10 +14,8 @@ import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
  *
  *         May 7, 2019
  */
-public class LoadBankAccountCommand extends BankAccountCommand {
+public class LoadBankAccountCommand extends AbstractCommand<BankAccountService> {
 
-	public LoadBankAccountCommand() {
-	}
 
 	public LoadBankAccountCommand(BankAccountService service) {
 		super(service);
