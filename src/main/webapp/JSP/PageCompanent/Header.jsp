@@ -36,7 +36,6 @@
 			<li><a href=#><div class="profilebutton"></div></a>
 				<ul class="submenu">
 					<li><a href=#>Мой профиль</a></li>
-					<li><a href=#>Редактировать</a></li>
 					<li><a href=start?command=logout>Выход</a></li>
 				</ul></li>
 		</ul>

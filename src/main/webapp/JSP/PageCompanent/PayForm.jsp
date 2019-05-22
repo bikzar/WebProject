@@ -21,8 +21,7 @@
 	<div class="PayDetailsText">
 
 		<div style="text-decoration: underline; font-weight: 700">
-			<fmt:message key="userpage.Operation.Pay.Header" />
-			:
+			<fmt:message key="userpage.Operation.Pay.Header" />:
 		</div>
 
 		<form action="start" method="post">
@@ -31,22 +30,20 @@
 			<div class="Pay-flex-container">
 
 				<div style="margin-left: 37px">
-					<fmt:message key="userpage.Operation.Pay.ChooseResoursCard" />
-					:
+					<fmt:message key="userpage.Operation.Pay.ChooseSourcesCard" />:
 				</div>
 
 				<select name="cardId" class="PaySelector">
-					<option disabled selected><fmt:message
-							key="userpage.Operation.Pay.ChooseYourCard" /></option>
-
+					<c:set var="isSelect" value="selected" scope="request"></c:set>
 					<c:forEach items="${sessionScope.bankAccountList}"
 						var="bankAccount">
 						<c:forEach items="${bankAccount.getCreditCardList()}"
 							var="creditCard">
 							<c:if test="${!creditCard.isBlock()}">
-								<option value="${creditCard.getCreditCardId()}">${creditCard.getCreditCardId()}:
+								<option ${isSelecte} value="${creditCard.getCreditCardId()}">${creditCard.getCreditCardId()}:
 									${bankAccount.getAccountMoney()}
 									(${creditCard.getCyrrencyType()})</option>
+								<c:set var="isSelect" value="" scope="request"></c:set>
 							</c:if>
 						</c:forEach>
 					</c:forEach>

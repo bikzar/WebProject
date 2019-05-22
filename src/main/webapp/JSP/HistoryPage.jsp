@@ -17,7 +17,7 @@
 
 		<c:import url="./PageCompanent/LeftMenu.jsp"></c:import>
 
-		<c:import url="./PageCompanent/PayForm.jsp"></c:import>
+		<c:import url="./PageCompanent/HistoryForm.jsp"></c:import>
 
 	</div>
 
