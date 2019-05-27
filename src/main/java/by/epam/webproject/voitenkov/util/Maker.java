@@ -53,11 +53,11 @@ public class Maker {
 
 		if (sourceBankAccount != null && destinationAccount != null
 				&& operationType != null && dateTime != null) {
-			
+
 			if (sourceCard != null) {
 				id = sourceCard.getCreditCardId();
 			}
-			
+
 			if (sourceBankAccount.getAccountId() == innerBankBYNAccountId) {
 				sum *= salesCourse;
 			} else if (destinationAccount

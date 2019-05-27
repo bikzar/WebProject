@@ -54,12 +54,13 @@ public class CreditCardDAOImpl extends AbstractDAO<CreditCard>
 	@Override
 	public List<CreditCard> getAll(long bankAccountId) throws DaoException {
 
-		List<CreditCard> resultList = new ArrayList<CreditCard>();
+		List<CreditCard> resultList = null;
 
 		String query = ConfigurationReader.getProperty(
 				ConstantConteiner.GET_ALL_CREDIT_CARD_BY_BANK_ACCOUNT_ID);
 
 		if (Validator.validateID(bankAccountId)) {
+			resultList = new ArrayList<CreditCard>();
 			resultList = executeQueryList(query, builder, bankAccountId);
 		}
 
@@ -119,12 +120,16 @@ public class CreditCardDAOImpl extends AbstractDAO<CreditCard>
 	}
 
 	@Override
-	public boolean updateIsBockColumnById(long id) throws DaoException {
+	public boolean updateIsBockColumnById(long id, boolean isLock) throws DaoException {
 
 		boolean result = false;
 
 		String query = ConfigurationReader
 				.getProperty(ConstantConteiner.BLOCK_CREDIT_CARD_BY_ID);
+		
+		if(!isLock) {
+			query = ConfigurationReader.getProperty(ConstantConteiner.UNLOCK_CREDIT_CARD_BY_ID);
+		}
 
 		if (Validator.validateID(id)) {
 			result = executeUpdateQuery(query, id);

@@ -8,5 +8,13 @@ import by.epam.webproject.voitenkov.dao.daoexception.DaoException;
  * May 14, 2019
  */
 public interface CreditCardDAO {
-	boolean updateIsBockColumnById(long id) throws DaoException;
+	
+	
+	/**
+	 * @param id - id card number
+	 * @param isLock - true for lock, false for unlock card.
+	 * @return
+	 * @throws DaoException
+	 */
+	boolean updateIsBockColumnById(long id, boolean isLock) throws DaoException;
 }

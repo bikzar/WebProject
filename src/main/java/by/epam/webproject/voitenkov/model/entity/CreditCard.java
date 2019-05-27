@@ -14,10 +14,7 @@ public class CreditCard {
 	private CurrencyType currencyType;
 	private long bankAccountId;
 
-	{
-		currencyType = CurrencyType.BYN;
-	}
-
+	
 	public CreditCard() {
 	}
 

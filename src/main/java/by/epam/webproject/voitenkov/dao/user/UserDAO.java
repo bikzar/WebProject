@@ -1,6 +1,9 @@
 package by.epam.webproject.voitenkov.dao.user;
 
+import java.util.List;
+
 import by.epam.webproject.voitenkov.dao.daoexception.DaoException;
+import by.epam.webproject.voitenkov.model.entity.User;
 
 /**
  * @author Sergey Voitenkov
@@ -16,12 +19,14 @@ public interface UserDAO {
 	 * @throws CantCreateConnectinPoolException
 	 * @throws DaoException
 	 */
-	public int getUserIDByLogin(String userLogin) throws DaoException;
+	int getUserIDByLogin(String userLogin) throws DaoException;
 
 	/**
 	 * @return null - if userLogin is null or user with userLogin doesn't exist.
 	 * @throws DaoException
 	 * @throws CantCreateConnectinPoolException
 	 */
-	public String getUserPassword(String userLogin) throws DaoException;
+	String getUserPassword(String userLogin) throws DaoException;
+
+	List<User> getUserList(String name, String secondName, String login) throws DaoException;
 }

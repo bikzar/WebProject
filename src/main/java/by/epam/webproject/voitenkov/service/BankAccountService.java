@@ -14,4 +14,10 @@ public interface BankAccountService {
 	public void loadBankAccount(HttpServletRequest req) throws ServiceLevelException;
 	
 	public void loadPayForm(HttpServletRequest req) throws ServiceLevelException ;
+
+	void loadUnBlockPage(HttpServletRequest req) throws ServiceLevelException;
+
+	boolean lockBankAccount(HttpServletRequest req)	throws ServiceLevelException;
+
+	boolean unLockBankaccount(HttpServletRequest req) throws ServiceLevelException;
 }

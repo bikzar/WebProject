@@ -49,6 +49,7 @@ public class LogInCommand extends AbstractCommand<UserService> {
 									.getProperty(ConstantConteiner.USER_PAGE);
 						}
 					}
+
 				} else {
 
 					req.setAttribute(ConfigurationReader.getProperty(

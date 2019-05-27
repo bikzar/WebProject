@@ -16,7 +16,7 @@ import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
  *         Apr 18, 2019
  */
 public class RegistrationCommand extends AbstractCommand<UserService> {
-	
+
 	public RegistrationCommand(UserService userService) {
 		super(userService);
 	}
@@ -48,7 +48,7 @@ public class RegistrationCommand extends AbstractCommand<UserService> {
 						e.getMessage());
 
 				result = ConfigurationReader
-						.getProperty(ConstantConteiner.ERROR_PAGE);
+						.getProperty(ConstantConteiner.GO_REGISTRATION_PAGE);
 			}
 		}
 

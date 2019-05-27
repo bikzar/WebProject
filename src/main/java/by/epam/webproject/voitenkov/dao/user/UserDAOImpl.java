@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -42,7 +43,7 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
 
 	@Override
 	public int getUserIDByLogin(String userLogin) throws DaoException {
-		
+
 		Statement statement = null;
 		int userID = -1;
 
@@ -153,7 +154,15 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
 
 	@Override
 	public List<User> getAll(long id) throws DaoException {
-		return null;
+
+		ArrayList<User> list = null;
+
+		if (Validator.validateID(id)) {
+			list = new ArrayList<User>();
+			list.add(getById(id));
+		}
+
+		return list;
 	}
 
 	@Override
@@ -211,6 +220,51 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
 			result = executeUpdateQuery(query, entity.getUserId());
 		}
 		return result;
+	}
+
+	@Override
+	public List<User> getUserList(String name, String secondName, String login)
+			throws DaoException {
+
+		ArrayList<User> list = null;
+
+		if (name != null && !name.isEmpty()
+				|| secondName != null && !secondName.isEmpty()) {
+
+			list = new ArrayList<User>();
+
+			String query = ConfigurationReader
+					.getProperty(ConstantConteiner.FIND_USER_FOR_ADMIN);
+
+			if (login == null || login != null && login.isEmpty()) {
+				login = "";
+			}
+
+			Object[] elements = { name, secondName, login };
+
+			ResultSet resultSet = getResultSet(query, elements);
+
+			try {
+
+				while (resultSet != null && resultSet.next()) {
+
+					long id = resultSet.getLong(ConfigurationReader
+							.getProperty(ConstantConteiner.DB_USER_ID));
+
+					list.add(getById(id));
+				}
+
+			} catch (SQLException e) {
+				logger.warn(
+						"Try to get next() on resultSet getUserListByQuery() methood UserDAOImpl class");
+
+				throw new DaoException(ConfigurationReader
+						.getProperty(ConstantConteiner.DB_PROBLEM_MSG));
+			}
+
+		}
+
+		return list;
 	}
 
 }

@@ -10,8 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import by.epam.webproject.voitenkov.model.entity.User;
 import by.epam.webproject.voitenkov.util.ConstantConteiner;
 import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
 
@@ -36,12 +38,12 @@ public class IsUserLoginFilter implements Filter {
 
 		String regex = ConfigurationReader
 				.getProperty(ConstantConteiner.URL_REGEX_FIRST_ENTER);
-		
+
 		String contentRegex = ConfigurationReader
 				.getProperty(ConstantConteiner.CONTENT_REGEX);
 
 		boolean isAvailablePath = Pattern.matches(regex, currentPath);
-		
+
 		boolean isContentPath = Pattern.matches(contentRegex, currentPath);
 
 		String logInComand = ConfigurationReader
@@ -69,19 +71,31 @@ public class IsUserLoginFilter implements Filter {
 				&& (session.getAttribute(ConfigurationReader
 						.getProperty(ConstantConteiner.USER))) != null;
 
+		if (isSessionActive && isAvailablePath || isCommand && isAvailablePath
+				|| isContentPath || isAvailablePath && !isSessionActive
+						&& currentCommand == null) {
 
-		if ((isSessionActive && isAvailablePath)
-				|| (isCommand && isAvailablePath) || isContentPath) {
+			if (isSessionActive && isAvailablePath && currentCommand == null) {
 
-			chain.doFilter(request, response);
+				User user = (User) session.getAttribute(ConfigurationReader
+						.getProperty(ConstantConteiner.USER));
+				if (!user.isAdmin()) {
 
+					req.getRequestDispatcher(ConfigurationReader
+							.getProperty(ConstantConteiner.USER_PAGE))
+							.forward(request, response);
+					;
+				}
+
+			} else {
+
+				chain.doFilter(request, response);
+			}
 		} else {
 
-			req.getRequestDispatcher(
-					ConstantConteiner.PATH_TO_INDEX_FOR_REDIRECT)
-					.forward(request, response);
+			((HttpServletResponse) response)
+					.sendRedirect(ConstantConteiner.PATH_TO_INDEX_FOR_REDIRECT);
 		}
-
 	}
 
 	@Override

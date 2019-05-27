@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 import by.epam.webproject.voitenkov.dao.connectionpool.ConnectionPool;
 import by.epam.webproject.voitenkov.dao.daoexception.DaoException;
 import by.epam.webproject.voitenkov.model.builder.statementbuilder.FromStatemantBuilder;
+import by.epam.webproject.voitenkov.util.ConstantConteiner;
+import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
 
 /**
  * @author Sergey Voitenkov
@@ -153,10 +155,9 @@ public abstract class AbstractDAO<T> implements DAO<T> {
 	 * @param parameters
 	 * @return ResultSet or null if query is null or parameters is null or
 	 *         connection to DB doesn't exist.
-	 * @throws SQLException
+	 * @throws DaoException 
 	 */
-	public ResultSet getResultSet(String query, Object... parameters)
-			throws SQLException {
+	public ResultSet getResultSet(String query, Object... parameters) throws DaoException {
 
 		Connection connection = ConnectionPool.getInstance().getConnection();
 		PreparedStatement preparedStatement = null;
@@ -172,6 +173,12 @@ public abstract class AbstractDAO<T> implements DAO<T> {
 
 				resultSet = preparedStatement.executeQuery();
 
+			} catch (SQLException e) {
+				
+				logger.warn(
+						"Try to get prepareStatement or getPrepareStatement() or get resultSet in getResultSet() methood AbstractDAO class");
+				throw new DaoException(ConfigurationReader.getProperty(ConstantConteiner.DB_PROBLEM_MSG));
+				
 			} finally {
 				ConnectionPool.getInstance().returnConnection(connection);
 

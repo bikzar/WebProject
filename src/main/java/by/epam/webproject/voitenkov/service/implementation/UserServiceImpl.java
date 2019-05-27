@@ -1,9 +1,14 @@
 package by.epam.webproject.voitenkov.service.implementation;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import by.epam.webproject.voitenkov.dao.DAOFactory;
 import by.epam.webproject.voitenkov.dao.bankaccount.BankAccountDAOImpl;
@@ -16,7 +21,9 @@ import by.epam.webproject.voitenkov.model.entity.BankAccount;
 import by.epam.webproject.voitenkov.model.entity.User;
 import by.epam.webproject.voitenkov.service.UserService;
 import by.epam.webproject.voitenkov.service.serviceexception.CantRegistredUserException;
+import by.epam.webproject.voitenkov.service.serviceexception.ServiceLevelException;
 import by.epam.webproject.voitenkov.util.ConstantConteiner;
+import by.epam.webproject.voitenkov.util.Maker;
 import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
 
 /**
@@ -28,6 +35,8 @@ public class UserServiceImpl implements UserService {
 
 	private static final DAOFactory DAO_FACTORY = DAOFactory.getInstance();
 	private static final UserDAOImpl USER_DAO = DAO_FACTORY.getUserDAO();
+
+	private static Logger logger = LogManager.getLogger();
 
 	private static FromFormBuilder<User> builder;
 
@@ -90,7 +99,7 @@ public class UserServiceImpl implements UserService {
 			}
 
 			if (result) {
-				
+
 				User user = USER_DAO.getById(USER_DAO.getUserIDByLogin(login));
 
 				req.getSession().setAttribute(
@@ -120,5 +129,88 @@ public class UserServiceImpl implements UserService {
 		if (curruntSession != null) {
 			curruntSession.invalidate();
 		}
+	}
+
+	@Override
+	public void findUser(HttpServletRequest req) throws ServiceLevelException {
+
+		if (req != null) {
+
+			try {
+				String name = req.getParameter(ConfigurationReader
+						.getProperty(ConstantConteiner.F_USER_NAME));
+
+				name = encodeString(name);
+
+				String secondName = req.getParameter(ConfigurationReader
+						.getProperty(ConstantConteiner.F_USER_SECOND_NAME));
+
+				secondName = encodeString(secondName);
+
+				String login = req.getParameter(ConfigurationReader
+						.getProperty(ConstantConteiner.F_LOGIN));
+
+				login = encodeString(login);
+
+				if (name != null && !name.isEmpty() && secondName != null
+						&& !secondName.isEmpty()) {
+
+					try {
+
+						List<User> list = USER_DAO.getUserList(name, secondName,
+								login);
+						
+						req.setAttribute(
+								ConfigurationReader.getProperty(
+										ConstantConteiner.F_USER_NAME),
+								name);
+
+						req.setAttribute(ConfigurationReader.getProperty(
+								ConstantConteiner.F_USER_SECOND_NAME),
+								secondName);
+
+						req.setAttribute(ConfigurationReader.getProperty(
+								ConstantConteiner.F_LOGIN), login);
+
+						if (!list.isEmpty()) {
+							
+							req.setAttribute(ConstantConteiner.USER_LIST, list);
+
+							req.setAttribute(ConfigurationReader.getProperty(
+									ConstantConteiner.IS_AFTER_CALCULATION),
+									true);
+						} else {
+
+							throw new ServiceLevelException(
+									ConfigurationReader.getProperty(
+											ConstantConteiner.CANT_FIND_USER_MSG));
+						}
+
+					} catch (DaoException e) {
+						logger.error(
+								"Try to execute getUserListByQuery() methood in UserServiceImpl class"
+										+ e);
+						throw new ServiceLevelException(ConfigurationReader
+								.getProperty(ConstantConteiner.DB_PROBLEM_MSG));
+					}
+
+				} else {
+					throw new ServiceLevelException(ConfigurationReader
+							.getProperty(ConstantConteiner.INCORRECT_DATA_MSG));
+				}
+
+			} catch (UnsupportedEncodingException e1) {
+				throw new ServiceLevelException(ConfigurationReader
+						.getProperty(ConstantConteiner.SOME_PROBLEM_MSG));
+			}
+
+		}
+
+	}
+
+	private String encodeString(String text)
+			throws UnsupportedEncodingException {
+		return new String(text.getBytes(StandardCharsets.ISO_8859_1),
+				ConstantConteiner.UTF_8_ENCODING);
 	}
 }

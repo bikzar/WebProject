@@ -8,9 +8,6 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
-import javax.servlet.http.HttpServletRequest;
-
-import by.epam.webproject.voitenkov.util.ConstantConteiner;
 
 /**
  * @author Sergey Voitenkov
@@ -18,14 +15,17 @@ import by.epam.webproject.voitenkov.util.ConstantConteiner;
  *         Apr 27, 2019
  */
 public class EncodingParametrsFilter implements Filter {
+	
+    private final static String ENCODING_PARAMETER = "encoding";
+    private String code;
 
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		
-		HttpServletRequest req = (HttpServletRequest) request;
-		
-		if(req.getCharacterEncoding() == null) {
-			req.setCharacterEncoding(ConstantConteiner.UTF_8_ENCODING);
+		if(request.getCharacterEncoding() == null) {
+			request.setCharacterEncoding(code);
+			response.setCharacterEncoding(code);
+			
 		}
 			
 		chain.doFilter(request, response);
@@ -37,6 +37,7 @@ public class EncodingParametrsFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
+		code = filterConfig.getInitParameter(ENCODING_PARAMETER);
 	}
 
 }

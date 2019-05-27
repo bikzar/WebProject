@@ -52,12 +52,13 @@ public class BankAccountDAOImpl extends AbstractDAO<BankAccount>
 	@Override
 	public List<BankAccount> getAll(long userId) throws DaoException {
 
-		List<BankAccount> accounts = new ArrayList<BankAccount>();
+		List<BankAccount> accounts = null;
 
 		String query = ConfigurationReader
 				.getProperty(ConstantConteiner.GET_ALL_BANK_ACCOUNT_BY_ID);
 
 		if (Validator.validateID(userId)) {
+			accounts = new ArrayList<BankAccount>();
 			accounts = executeQueryList(query, builder, userId);
 		}
 
@@ -76,7 +77,8 @@ public class BankAccountDAOImpl extends AbstractDAO<BankAccount>
 
 			Object[] bankAccountElements = { entity.isBlock(),
 					entity.getAccountMoney(),
-					entity.getCurrencyType().ordinal()+1, entity.getUserId() };
+					entity.getCurrencyType().ordinal() + 1,
+					entity.getUserId() };
 
 			result = executeUpdateQuery(query, bankAccountElements);
 		}
@@ -96,7 +98,7 @@ public class BankAccountDAOImpl extends AbstractDAO<BankAccount>
 
 			Object[] bankAccountElements = { entity.isBlock(),
 					entity.getAccountMoney(),
-					entity.getCurrencyType().ordinal()+1, entity.getUserId(),
+					entity.getCurrencyType().ordinal() + 1, entity.getUserId(),
 					entity.getAccountId() };
 
 			result = executeUpdateQuery(query, bankAccountElements);
@@ -134,10 +136,29 @@ public class BankAccountDAOImpl extends AbstractDAO<BankAccount>
 
 			Object[] bankAccountElements = { bankAccountId };
 
-			executeUpdateQuery(query, bankAccountElements);
+			result = executeUpdateQuery(query, bankAccountElements);
+		}
+
+		return result;
+	}
+
+	@Override
+	public boolean updateIsBlockColumnById(long id, boolean isLock) throws DaoException {
+		boolean result = false;
+
+		String query = ConfigurationReader
+				.getProperty(ConstantConteiner.UNLOCK_BANK_ACCOUNT_QUERY);
+
+		if (isLock) {
+			query = ConfigurationReader
+					.getProperty(ConstantConteiner.LOCK_BANK_ACCOUNT_QUERY);
+		}
+		
+		if(Validator.validateID(id)) {
+			
+			result = executeUpdateQuery(query, id);
 		}
 
 		return result;
 	}
 }
-

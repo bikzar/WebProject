@@ -13,35 +13,29 @@ public class ConstantConteiner {
 //-----------------------------------------------------------------------------
 
 	// Command
-	public static final String GO_TO_HISTORY_PAGE_COMMAND = "GoToHistoryPageCommand";
-	public static final String LOAD_BANK_ACCOUNT_COMMAND = "LoadBankAccount";
-	public static final String BLOCK_CREDIT_CARD_COMMAND = "BlockCreditCard";
-	public static final String REPLENISH_ACCOUNT_COMMAND = "ReplenishAccount";
-	public static final String LOAD_PAY_HISTORY_COMAND = "LoadPayHistory";
-	public static final String GO_TO_PAY_PAGE_COMMAND = "GoToPayPageCommand";
 	public static final String REGISTRATION_COMMAND = "Registration";
 	public static final String GO_TO_LOGIN_PAGE = "GoToLogInPage";
-	public static final String DEFAULT_COMMAND = "Default";
-	public static final String LOGOUT_COMMAND = "Logout";
 	public static final String LOGIN_COMMAND = "Login";
-	public static final String PAY_COMMAND = "Pay";
 	public static final String COMMAND = "Command";
 	
 //-----------------------------------------------------------------------------
 
 	// Path
 	public static final String PATH_TO_INDEX_FOR_REDIRECT = "start";
+	public static final String PATH_TO_USER_PAGE_REDIRECT = "start/JSP/UserPage.jsp";
 	public static final String BANK_ACCOUNT_DETAILS_PAGE = "BankAccountDetailsPage";
 	public static final String RIGHT_PAHT_FOR_REENTER = "RightReEnterPath";
 	public static final String GO_REGISTRATION_PAGE = "RegistrationPage";
 	public static final String GO_TO_REPLANISH_PAGE = "GoToReplanishPage";
+	public static final String UNBLOCK_CARD_PAGE = "UnBlockCardPage";
 	public static final String GO_TO_PAY_PAGE = "GoToPayPage";
 	public static final String DEFAULT_PAGE = "DefaultPage";
+	public static final String HISTORY_PAGE = "HistoryPage";
+	public static final String SEARCH_PAGE = "SearchPage";
 	public static final String LOGIN_PAGE = "LoginPage";
 	public static final String ERROR_PAGE = "ErrorPage";
 	public static final String ADMIN_PAGE = "AdminPage";
 	public static final String USER_PAGE = "UserPage";
-	public static final String HISTORY_PAGE = "HistoryPage";
 
 //-----------------------------------------------------------------------------
 
@@ -52,6 +46,8 @@ public class ConstantConteiner {
 	public static final String GET_USER_BY_ID = "GetUserById";
 	public static final String UPDATE_USER = "UpdateUser";
 	public static final String SAVE_USER = "SaveUser";
+	public static final String GET_USER_WITH_PARAM = "GetUserWithParam";
+	public static final String FIND_USER_FOR_ADMIN = "FindUserForAdmin";
 
 	public static final String GET_BANK_ACCOUNT_ID_BY_CREDIT_CARD_ID = "BankAccountIdByCreditCardId";
 	public static final String GET_ALL_BANK_ACCOUNT_BY_ID = "GetAllBankAcoountById";
@@ -59,10 +55,13 @@ public class ConstantConteiner {
 	public static final String GET_BANK_ACCOUNT_BY_ID = "GetBankAccountById";
 	public static final String UPDATE_BANK_ACCOUNT = "UpdateBankAccount";
 	public static final String SAVE_BANK_ACCOUNT = "SaveBankAccount";
+	public static final String LOCK_BANK_ACCOUNT_QUERY = "LockBankAccount";
+	public static final String UNLOCK_BANK_ACCOUNT_QUERY = "UnLockBankAccount";
 
+	public static final String GET_ALL_CREDIT_CARD_BY_BANK_ACCOUNT_ID = "GetAllCreditCardByBankAccountsId";
+	public static final String UNLOCK_CREDIT_CARD_BY_ID = "UnlockCreditCardById";
 	public static final String BLOCK_CREDIT_CARD_BY_ID = "BlockCreditCardById";
 	public static final String GET_CREDIT_CARD_BY_ID = "GetCreditCardById";
-	public static final String GET_ALL_CREDIT_CARD_BY_BANK_ACCOUNT_ID = "GetAllCreditCardByBankAccountsId";
 	public static final String SAVE_CREDIT_CARD = "SaveCreditCard";
 	public static final String UPDATE_CREDIT_CARD = "UpdateCreditCard";
 	public static final String DELETE_CREDIT_CARD = "DeleteCraditCard";
@@ -77,6 +76,7 @@ public class ConstantConteiner {
 	public static final int NOT_ADMIN = 0;
 	public static final int ADMIN = 1;
 	public static final String USER = "User";
+	public static final String USER_LIST = "userList";
 
 	// DB_NAMES
 	public static final String DB_USER_SECOND_NAME = "DBSecondName";
@@ -94,6 +94,7 @@ public class ConstantConteiner {
 	public static final String F_IS_ADMIN = "FIsAdmin";
 	public static final String F_PASSWORD = "FPassword";
 	public static final String F_LOGIN = "FLogin";
+	public static final String F_USER_ID = "FUserId";
 //-----------------------------------------------------------------------------
 
 	// Bank Account constant
@@ -146,8 +147,13 @@ public class ConstantConteiner {
 	public static final String CANT_REPLENIASH_MSG = "CantReplenish";
 	public static final String INCORRECT_DATA_MSG = "IncorrectInputData";
 	public static final String CANT_SAVE_USER_MSG = "CantSaveUser";
+	public static final String CANT_FIND_USER_MSG = "CantFindUser";
+	public static final String CANT_ADD_CARD_MSG = "CantAddCard";
 	public static final String SOME_PROBLEM_MSG = "SomeProblem";
+	public static final String CANT_UNLOCK_MSG = "CantUnlock";
 	public static final String DB_PROBLEM_MSG = "DBProblem";
+	public static final String CANT_LOCK_MSG = "Cantlock";
+	public static final String CANT_DELETE_MSG = "CantDelete";
 	
 //-----------------------------------------------------------------------------
 
@@ -165,6 +171,9 @@ public class ConstantConteiner {
 	public static final String SALE_BYN_CONST = "saleBYN/";
 	public static final String CONTENT_REGEX = "ContentRegex";
 	public static final String BUY_BYN_CONST = "buyBYN/";
+	public static final String EN_LOCALE = "en";
+	public static final String RU_LOCALE = "ru";
+	public static final String LANGUAGE = "language";
 	public static final String SUM = "Sum";
 
 //-----------------------------------------------------------------------------
@@ -172,8 +181,6 @@ public class ConstantConteiner {
 	// System configuration
 	public static final String CONFIG_FILE_NAME = "configurations.xml";
 	public static final String UTF_8_ENCODING = "UTF-8";
-//-----------------------------------------------------------------------------
 
-	// Filter constant
-	public static final String RU_LANGUAGE_ABRIV = "ru";
+	
 }

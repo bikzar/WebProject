@@ -10,5 +10,11 @@ import by.epam.webproject.voitenkov.service.serviceexception.ServiceLevelExcepti
  * May 15, 2019
  */
 public interface CreditCardService {
-	boolean blockCreditCard(HttpServletRequest request)  throws ServiceLevelException;
+	boolean lockCreditCard(HttpServletRequest request)  throws ServiceLevelException;
+
+	boolean unLockCreditCard(HttpServletRequest request) throws ServiceLevelException;
+
+	boolean addCard(HttpServletRequest req) throws ServiceLevelException;
+
+	boolean deleteCrad(HttpServletRequest req) throws ServiceLevelException;
 }

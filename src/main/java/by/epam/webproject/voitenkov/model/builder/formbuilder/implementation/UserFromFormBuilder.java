@@ -65,6 +65,9 @@ public class UserFromFormBuilder implements FromFormBuilder<User> {
 						.getProperty(ConstantConteiner.F_PASSWORD));
 
 				password = encodeString(temp);
+				
+				birthDate = LocalDate.parse(req.getParameter(ConfigurationReader
+						.getProperty(ConstantConteiner.F_BIRTH_DATE)));
 
 			} catch (UnsupportedEncodingException e) {
 				logger.warn(
@@ -72,8 +75,7 @@ public class UserFromFormBuilder implements FromFormBuilder<User> {
 								+ ConstantConteiner.UTF_8_ENCODING);
 			}
 
-			birthDate = LocalDate.parse(req.getParameter(ConfigurationReader
-					.getProperty(ConstantConteiner.F_BIRTH_DATE)));
+
 		}
 
 		return new User(userId, name, secondName, birthDate, isAdmin, login,

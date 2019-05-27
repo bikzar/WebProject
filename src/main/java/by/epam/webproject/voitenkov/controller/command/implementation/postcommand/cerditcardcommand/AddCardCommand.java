@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
-import by.epam.webproject.voitenkov.model.entity.User;
 import by.epam.webproject.voitenkov.service.CreditCardService;
 import by.epam.webproject.voitenkov.service.serviceexception.ServiceLevelException;
 import by.epam.webproject.voitenkov.util.ConstantConteiner;
@@ -13,47 +12,32 @@ import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
 /**
  * @author Sergey Voitenkov
  *
- *         May 9, 2019
+ *         May 26, 2019
  */
-public class BlockCreditCardCommand extends AbstractCommand<CreditCardService> {
+public class AddCardCommand extends AbstractCommand<CreditCardService> {
 
-	public BlockCreditCardCommand(CreditCardService service) {
+	public AddCardCommand(CreditCardService service) {
 		super(service);
 	}
 
 	@Override
 	public String execute(HttpServletRequest req, HttpServletResponse resp) {
 
-		String result = ConfigurationReader
-				.getProperty(ConstantConteiner.BANK_ACCOUNT_DETAILS_PAGE);
+		String nextPage = ConfigurationReader
+				.getProperty(ConstantConteiner.UNBLOCK_CARD_PAGE);
 
 		try {
 
-			this.getService().lockCreditCard(req);
-
-			if (req != null) {
-				User user = (User) req.getSession().getAttribute(ConfigurationReader
-						.getProperty(ConstantConteiner.USER));
-				if (user != null && user.isAdmin()) {
-					result = ConfigurationReader
-							.getProperty(ConstantConteiner.UNBLOCK_CARD_PAGE);
-				}
-
-			}
-
+			this.getService().addCard(req);
+			
 		} catch (ServiceLevelException e) {
-
 			req.setAttribute(
 					ConfigurationReader.getProperty(
 							ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
 					e.getMessage());
-
-			result = ConfigurationReader
-					.getProperty(ConstantConteiner.ERROR_PAGE);
-
 		}
 
-		return result;
+		return nextPage;
 	}
 
 }

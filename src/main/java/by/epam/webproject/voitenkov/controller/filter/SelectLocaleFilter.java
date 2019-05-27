@@ -10,6 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import by.epam.webproject.voitenkov.util.ConstantConteiner;
 
@@ -31,17 +32,21 @@ public class SelectLocaleFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
+
+		HttpSession session = ((HttpServletRequest)request).getSession(true);
+		String language = (String) session.getAttribute(ConstantConteiner.LANGUAGE);
 		
-		HttpServletRequest req = (HttpServletRequest) request;
-		
-		Locale locale = req.getLocale();
-		
-		if(locale != null && locale.getLanguage().compareTo(ConstantConteiner.RU_LANGUAGE_ABRIV)==0) {
-			Locale.setDefault(new Locale(ConstantConteiner.RU_LANGUAGE_ABRIV));
-		}else {
-			Locale.setDefault(Locale.FRANCE);
+		if (language == null || language.isEmpty()) {
+			
+			String lang = ConstantConteiner.EN_LOCALE;
+			
+			if(request.getLocale().getLanguage().equals(ConstantConteiner.RU_LOCALE)) {
+				lang = ConstantConteiner.RU_LOCALE;
+			}
+			
+			session.setAttribute(ConstantConteiner.LANGUAGE, lang);
 		}
-		
+
 		chain.doFilter(request, response);
 	}
 
