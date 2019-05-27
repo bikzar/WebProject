@@ -43,8 +43,8 @@ div.marginRegistration {
 
 form.regestrationForm {
 	background: rgba(255, 255, 255, 0.9);
-	width: 550px;
-	height: 480px;
+	width: 450px;
+    height: 300px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -370,20 +370,6 @@ ul.menu2>li:hover>ul.submenu {
 	opacity: 0.3;
 }
 
-.addCardButton {
-	position: relative;
-	left: 19px;
-	background-color: Transparent;
-	background-repeat: no-repeat;
-	border: none !important;
-	cursor: pointer;
-	overflow: hidden;
-	font-size: 20px;
-	font-family: Ubuntu Condensed;
-	outline: none;
-	height: auto;
-	width: auto;
-}
 
 /*************Pay details block*************/
 .PayDetailsBlock {
@@ -523,4 +509,159 @@ ul.menu2>li:hover>ul.submenu {
 
 	border-collapse: collapse;
 	text-align: center;
+}
+
+/*************History*****/
+.searchTable {
+	position: relative;
+	top: 10px;
+	left: 20px;
+	width: 25vw;
+	
+	font-size: 16px;
+
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.imageSearchForm {
+	background: url(../picture/search1.png);
+	opacity: 0.95;
+	position: absolute;
+	left: 550px;
+	top: 20px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 400px;
+	height: 400px;
+}
+
+.searchPageButton {
+	background-color: #5992c1;
+	
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	font-size: 12px;
+	font-weight: 600;
+	
+	cursor: pointer;
+	
+	position: relative;
+	left: 200px;
+	top: 15px;
+}
+
+.resultSearchTable{
+	position: relative;
+	top: 10px;
+	left: 45px;
+	width: 32vw;
+	
+	font-size: 16px;
+	
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.line{
+	border-bottom: 1px solid #ddd;
+}
+
+.choisUserButt{
+	background-color: #5992c1;
+	
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	font-size: 12px;
+	font-weight: 600;
+	
+	cursor: pointer;
+	
+	position: relative;
+	margin-bottom: 5px;
+	margin-top: 3px;
+}
+
+.fatline{
+	border-bottom: 1px solid #000000;
+}
+
+
+/******Unlock form*******/
+
+.imageUnlockDetails {
+	background: url(../picture/unlock.png);
+	opacity: 1;
+	position: absolute;
+	left: 550px;
+	top: 20px;
+	background-repeat: no-repeat;
+	background-size: contain;
+	width: 400px;
+	height: 400px;
+}
+
+.lockUnlockButt {
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	font-size: 18px;
+		
+	border-radius: 50%;
+	
+	height: 30px;
+	width: 29px;
+	
+	cursor: pointer;
+	position: relative;
+}
+
+.isLockIcon {
+	border-radius: 50%;
+	border: none;
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	font-size: 12px;
+}
+
+.line{
+	border-bottom: 1px solid #ddd;
+}
+
+.addCardButton {
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	font-size: 18px;
+		
+	background-color: green;
+	border-radius: 20%;
+	
+	cursor: pointer;
+	position: relative;
+	
+	height: 29px;
+	width: 42px;
+}
+
+.alignLeftTD{
+	align-content: left;
+}
+
+.deleteButt{
+	color: white;
+	text-align: center;
+	text-decoration: none;
+	font-size: 17px;
+		
+	border-radius: 50%;
+	
+	height: 30px;
+	width: 29px;
+	
+	cursor: pointer;
+	position: relative;
 }

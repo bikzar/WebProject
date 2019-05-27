@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/fmt" prefix = "fmt" %>
 
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="MYbundle" />
+
 <!DOCTYPE html>
 <html>
 	<head>
@@ -12,7 +15,6 @@
 				document.getElementById('command').value = 'goToLogInPage';
 			}
 		</script>
-		<fmt:requestEncoding value = "UTF-8" />
 	</head>
 <body>
 	<div class="marginRegistration">
@@ -21,33 +23,27 @@
 			<input id="command" type="hidden" name="command" value="registration" />
 			<table>
 				<tr>
-					<th colspan="2">User Information.<br>
+					<th colspan="2"><fmt:message key="registretion.lable.userInfo" />.<br>
 					</th>
 				</tr>
 				<tr>
-					<td></td>
-				</tr>
-				<tr>
-					<td></td>
-				</tr>
-				<tr>
-					<td class="registrationTdAlignRight">Name:</td>
+					<td class="registrationTdAlignRight"><fmt:message key="registretion.lable.name" />:</td>
 					<td><input type="text" name="name" value="" size="30"></td>
 				</tr>
 				<tr>
-					<td class="registrationTdAlignRight">Second Name:</td>
+					<td class="registrationTdAlignRight"><fmt:message key="registretion.lable.secondName" />:</td>
 					<td><input type="text" name="secondName" value="" size="30"></td>
 				</tr>
 				<tr>
-					<td class="registrationTdAlignRight">Birth Date:</td>
+					<td class="registrationTdAlignRight"><fmt:message key="registretion.lable.birthDate" />:</td>
 					<td><input type="date" name="birthDate" value=""></td>
 				</tr>
 				<tr>
-					<td class="registrationTdAlignRight">Login:</td>
+					<td class="registrationTdAlignRight"><fmt:message key="registretion.lable.login" />:</td>
 					<td><input type="text" name="login" value="" size="30"></td>
 				</tr>
 				<tr>
-					<td class="registrationTdAlignRight">Password:</td>
+					<td class="registrationTdAlignRight"><fmt:message key="registretion.lable.password" /></td>
 					<td><input type="text" name="password" value="" size="30">
 					</td>
 				</tr>
@@ -57,13 +53,14 @@
 
 				<tr>
 					<td colspan="2" class="registrationTdAlignCenter"><br>
-					<input class="butGrad" type="submit" value="Regestry">
-					<input class="butGrad" type="submit" value="Back"
+					<input class="butGrad" type="submit" value="<fmt:message key="registretion.lable.reg" />">
+					<input class="butGrad" type="submit" value="<fmt:message key="registretion.lable.back" />"
 						onclick="changeCommandValue()">
 					</td>
 				</tr>
 			</table>
 		</form>
+		<font size="2" color="red">${message}</font>
 	</div>
 </body>
 </html>

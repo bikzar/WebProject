@@ -3,10 +3,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Error</title>
+	<meta charset="UTF-8">
+	<title>Error</title>
 </head>
-<body>
-	<h2>${message}</h2>
-</body>
+	<body>
+		<h2>${message}</h2>
+	</body>
 </html>

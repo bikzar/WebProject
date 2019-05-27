@@ -29,6 +29,10 @@
 	<filter>
 		<filter-name>Encoding</filter-name>
 		<filter-class>by.epam.webproject.voitenkov.controller.filter.EncodingParametrsFilter</filter-class>
+		<init-param>
+            <param-name>encoding</param-name>
+            <param-value>UTF-8</param-value>
+        </init-param>
 	</filter>
 
 	<filter-mapping>

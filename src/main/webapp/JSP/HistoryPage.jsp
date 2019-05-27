@@ -4,24 +4,24 @@
 
 <!DOCTYPE html>
 <html dir="ltr">
-<head>
-<meta charset="utf-8">
-<title>Account</title>
-<link rel="stylesheet" type="text/css" href="CSS/StylesS.css">
-</head>
-<body>
-
-	<div class="parent">
-
-		<c:import url="./PageCompanent/Header.jsp"></c:import>
-
-		<c:import url="./PageCompanent/LeftMenu.jsp"></c:import>
-
-		<c:import url="./PageCompanent/HistoryForm.jsp"></c:import>
-
-	</div>
-
-	<c:import url="./PageCompanent/Footer.jsp"></c:import>
-
-</body>
+	<head>
+		<meta charset="utf-8">
+		<title>Account</title>
+		<link rel="stylesheet" type="text/css" href="CSS/StylesS.css">
+	</head>
+	<body>
+	
+		<div class="parent">
+	
+			<c:import url="./PageCompanent/Header.jsp"></c:import>
+	
+			<c:import url="./PageCompanent/LeftMenu.jsp"></c:import>
+	
+			<c:import url="./PageCompanent/HistoryForm.jsp"></c:import>
+	
+		</div>
+	
+		<c:import url="./PageCompanent/Footer.jsp"></c:import>
+	
+	</body>
 </html>

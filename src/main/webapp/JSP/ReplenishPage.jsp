@@ -27,3 +27,5 @@
 		</div>
 		
 		<c:import url="./PageCompanent/Footer.jsp"></c:import>
+	</body>
+</html>

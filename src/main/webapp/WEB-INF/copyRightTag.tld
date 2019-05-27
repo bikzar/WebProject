@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib 
+	xmlns="http://java.sun.com/JSP/TagLibraryDescriptor"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_1.xsd" version="2.1" >
+	
+	<tlib-version>1.0</tlib-version>
+	<short-name>copyRightTag</short-name>
+	<uri>/WEB-INF/copyRightTag</uri>
+	<tag>
+		<name>copyRight</name>
+		<tag-class>by.epam.webproject.voitenkov.util.tag.CopyRightTag</tag-class>
+		<body-content>JSP</body-content>
+		<info>copyRightTag tag displayes body if displayBody attribute is setted to true</info>
+        <attribute>
+            <name>displayBody</name>
+            <required>true</required>
+            <description>if statement</description>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>	
+        <attribute>
+            <name>cssClass</name>
+            <required>true</required>
+            <description>enter CSS class</description>
+            <rtexprvalue>true</rtexprvalue>
+        </attribute>	
+	</tag>
+</taglib>

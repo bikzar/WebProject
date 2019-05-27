@@ -2,15 +2,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<c:if test="${pageContext.request.locale.language == 'ru'}">
-	<fmt:setLocale value="${pageContext.request.locale.language}" />
-</c:if>
-
-<c:if test="${pageContext.request.locale.language != 'ru'}">
-	<fmt:setLocale value="en" />
-</c:if>
-
-<fmt:setBundle basename="by.epam.webproject.voitenkov.bundle.MYbundle" />
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="MYbundle" />
 
 <div class="header">
 
@@ -18,13 +11,21 @@
 
 	<div class="headerText">
 		<div class="russian">
-			<a href="#">RU</a>&nbsp&nbsp|
+			<form action="start" method="post">
+				<input name="command" value="changeLocale" type="hidden">
+				<input name="language" value="ru" type="hidden">
+				<input type="submit" class="AccountButton" value="RU  |"/>
+			</form>
 		</div>
 		<div class="english">
-			<a href="#">EN</a>&nbsp&nbsp|
+			<form action="start" method="post">
+				<input name="command" value="changeLocale" type="hidden">
+				<input name="language" value="en" type="hidden">
+				<input type="submit" class="AccountButton" value="EN  |"/>
+			</form>
 		</div>
 		<div class="aboutProject">
-			<a href="#">О проекте</a>
+			<input type="submit" class="AccountButton" value="<fmt:message key="userpage.header.about" />"/>
 		</div>
 	</div>
 
@@ -35,8 +36,8 @@
 		<ul class="menu2">
 			<li><a href=#><div class="profilebutton"></div></a>
 				<ul class="submenu">
-					<li><a href=#>Мой профиль</a></li>
-					<li><a href=start?command=logout>Выход</a></li>
+					<li><a href=#><fmt:message key="userpage.header.myprofile" /></a></li>
+					<li><a href=start?command=logout><fmt:message key="userpage.header.LogOut" /></a></li>
 				</ul></li>
 		</ul>
 	</div>

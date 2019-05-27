@@ -1,26 +1,27 @@
-<%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
+ <%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
-<!DOCTYPE html>
 <html dir="ltr">
 	<head>
-		<meta charset="utf-8">
+		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8' />
 		<title>Account</title>
 		<link rel="stylesheet" type="text/css" href="CSS/StylesS.css">
 	</head>
 	<body>
-	
+		
 		<div class="parent">
-	
+		
 			<c:import url="./PageCompanent/Header.jsp"></c:import>
-	
-			<c:import url="./PageCompanent/LeftMenu.jsp"></c:import>
-	
-			<c:import url="./PageCompanent/PayForm.jsp"></c:import>
+			
+			<c:import url="./PageCompanent/AdminLeftMenu.jsp"></c:import>
+			
+			<c:import url="./PageCompanent/SearchForm.jsp"></c:import>
 	
 		</div>
-	
+		
 		<c:import url="./PageCompanent/Footer.jsp"></c:import>
 	
 	</body>

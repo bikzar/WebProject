@@ -1,19 +1,9 @@
-<%@page import="by.epam.webproject.voitenkov.util.ConstantConteiner"%>
-<%@page
-	import="by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader"%>
 <%@ page contentType="text/html;charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<c:if test="${pageContext.request.locale.language == 'ru'}">
-	<fmt:setLocale value="${pageContext.request.locale.language}" />
-</c:if>
-
-<c:if test="${pageContext.request.locale.language != 'ru'}">
-	<fmt:setLocale value="en" />
-</c:if>
-
-<fmt:setBundle basename="by.epam.webproject.voitenkov.bundle.MYbundle" />
+<fmt:setLocale value="${sessionScope.language}"/>
+<fmt:setBundle basename="MYbundle" />
 
 <div class="PayDetailsBlock">
 
@@ -39,9 +29,7 @@
 				</div>
 
 				<select name="cardId" class="PaySelector">
-				
-					
-				
+								
 					<c:forEach items="${sessionScope.bankAccountList}" var="bankAccount">
 						
 						<c:if test="${!bankAccount.isBlock()}">
@@ -71,7 +59,7 @@
 
 			<div class="Pay-flex-container">
 
-				<div style="margin-left: 15px">
+				<div>
 					<fmt:message key="userpage.Operation.AddMoney.DestionationCard" />:
 				</div>
 
@@ -82,23 +70,29 @@
 					</c:if>
 
 					<c:forEach items="${sessionScope.bankAccountList}" var="bankAccount">
-						
-						<c:forEach items="${bankAccount.getCreditCardList()}" var="creditCard">
-						
-							<c:if test="${!creditCard.isBlock()}">
-
-								<c:set var="isSelect" value="" scope="request"></c:set>
+					
+					<c:if test="${!bankAccount.isBlock()}">
 							
-								<c:if test="${requestScope.destinationCardId eq creditCard.getCreditCardId()}">
-									<c:set var="isSelect" value="selected" scope="request"></c:set>
+							<c:forEach items="${bankAccount.getCreditCardList()}" var="creditCard">
+							
+								<c:if test="${!creditCard.isBlock()}">
+	
+									<c:set var="isSelect" value="" scope="request"></c:set>
+								
+									<c:if test="${requestScope.destinationCardId eq creditCard.getCreditCardId()}">
+										<c:set var="isSelect" value="selected" scope="request"></c:set>
+									</c:if>
+	
+									<option ${isSelect} value="${creditCard.getCreditCardId()}">${creditCard.getCreditCardId()}:
+										${bankAccount.getAccountMoney()}
+										(${creditCard.getCyrrencyType()})</option>
+	
 								</c:if>
-
-								<option ${isSelect} value="${creditCard.getCreditCardId()}">${creditCard.getCreditCardId()}:
-									${bankAccount.getAccountMoney()}
-									(${creditCard.getCyrrencyType()})</option>
-
-							</c:if>
-						</c:forEach>
+								
+							</c:forEach>
+							
+						</c:if>
+						
 					</c:forEach>
 
 				</select>
