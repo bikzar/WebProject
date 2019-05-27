@@ -1,4 +1,5 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+
 <properties>
 
 	<!--====================Database Properties============================= -->
@@ -6,40 +7,51 @@
 	<entry key="DBUserName">root</entry>
 	<entry key="DBDriver">com.mysql.cj.jdbc.Driver</entry>
 	<entry key="DBUrl">jdbc:mysql://localhost:3306/payment_system</entry>
+	
+	
 
 	<!--====================Connection Pool variable======================== -->
 	<entry key="isValidTimeOut">1</entry>
 	<entry key="poolSize">5</entry>
+	
+	
 
-	<!--========================Commands==================================== -->
+	<!--========================Commands==================================== 
+	<entry key="GoToHistoryPageCommand">goToPaymentHistory</entry>
 	<entry key="GoToPayPageCommand">goToPayPage</entry>
 	<entry key="ReplenishAccount">replenishAccount</entry>
 	<entry key="LoadBankAccount">loadBankAccount</entry>
 	<entry key="BlockCreditCard">blockCard</entry>
+	<entry key="LoadPayHistory">loadPayHistory</entry>
+	-->
 	<entry key="GoToLogInPage">goToLogInPage</entry>
 	<entry key="Registration">registration</entry>
 	<entry key="Command">command</entry>
-	<entry key="Default">default</entry>
-	<entry key="Logout">logout</entry>
 	<entry key="Login">login</entry>
+	
+	<!-- <entry key="Default">default</entry>
+	<entry key="Logout">logout</entry>
 	<entry key="Pay">pay</entry>
-	<entry key=""></entry>
+	<entry key="LoadUnBlockPageCommands"></entry>
+	<entry key="UnLockCommand">unLockCard</entry> -->
+	
 
 	<!--============================Path==================================== -->
 	<entry key="BankAccountDetailsPage">/JSP/BankAccountPage.jsp</entry>
+	<entry key="GoToReplanishPage">/JSP/ReplenishPage.jsp</entry>
 	<entry key="RegistrationPage">/JSP/RegistrationPage.jsp</entry>
 	<entry key="RightReEnterPath">/paymentsystem/start</entry>
+	<entry key="UnBlockCardPage">/JSP/UnBlockUserCardPage.jsp</entry>
 	<entry key="GoToPayPage">/JSP/PayPage.jsp</entry>
 	<entry key="DefaultPage">/JSP/UserPage.jsp</entry>
+	<entry key="HistoryPage">/JSP/HistoryPage.jsp</entry>
 	<entry key="LoginPage">index.jsp</entry>
 	<entry key="ErrorPage">/JSP/ErrorPage.jsp</entry>
 	<entry key="AdminPage">/JSP/AdminPage.jsp</entry>
 	<entry key="UserPage">/JSP/UserPage.jsp</entry>
-	<entry key=""></entry>
-	<entry key=""></entry>
-	<entry key=""></entry>
-	<entry key=""></entry>
-	<entry key=""></entry>
+	<entry key="SearchPage">/JSP/SearchPage.jsp</entry>
+	
+	
 
 	<!--==============================User Constant========================= -->
 
@@ -60,6 +72,10 @@
 	<entry key="FLogin">login</entry>
 	<entry key="FName">name</entry>
 	<entry key="User">user</entry>
+	<entry key="FUserId">userID</entry>
+	
+	
+	
 
 	<!--=============================Bank Account Constants================= -->
 
@@ -71,111 +87,144 @@
 	<entry key="DBBankAccountIsBlock">ba_block</entry>
 	<entry key="DBBankAccountMoney">acc_money</entry>
 	<entry key="DBBankAccountID">bank_account_id</entry>
-	<entry key="DBBankAccountID">bank_account_id</entry>
-	<entry key="DBBankAccountID">bank_account_id</entry>
 
 	<!--Request parameter name -->
 	<entry key="FBankAccountID">accountID</entry>
+	
+	
+	
 
 	<!--=============================Credit Card Constants================== -->
+	<entry key="FDestionationCardId">destinationCardId</entry>
 	<entry key="CreditCardList">creditCardList</entry>
 
 	<!--BD Column name -->
 	<entry key="DBCreditCardIsBlock">cc_block</entry>
 	<entry key="DBCreditCardID">credit_card_id</entry>
-	<entry key=""></entry>
-	<entry key=""></entry>
-	<entry key=""></entry>
 
 	<!--Form name -->
 	<entry key="FCreditCardID">cardId</entry>
+	
+	
+	
+
+	<!--=============================Transaction constant================== -->
+	<entry key="TotalAmount">totalAmount</entry>
+	<entry key="TransactionList">transactionList</entry>
+	
+	<!--BD Column name -->
+	<entry key="DBSourceId">resurs_id</entry>
+	<entry key="DBDestinationId">destination_id</entry>
+	<entry key="DBOperationType">operation_type</entry>
+	<entry key="DBOperationSum">operation_sum</entry>
+	<entry key="DBTransactionCurrency">trasaction_currency_type</entry>
+	<entry key="DBTransactionDate">t_date</entry>
+	
+	
+	
 
 	<!--=============================General constant======================= -->
 	<entry key="RequestErrorAttribName">message</entry>
-	<entry key="UrlRegexFirstEnter">\/paymentsystem\/(start|picture|CSS).*</entry>
+	<entry key="PartMainBankAccountName">MainBankAccuntId</entry>
+	<entry key="IsAfterCalculation">isAfterCalc</entry>
+	<entry key="UrlRegexFirstEnter">\/paymentsystem\/(start).*</entry>
+	<entry key="SerializationPath">/home/sergey/Desktop/serial/</entry>
+	<entry key="DateTimePattern">uuuu-MM-dd H:mm:ss</entry>
+	<entry key="TransactionSum">transactionSum</entry>
+	<entry key="ContentRegex">\/paymentsystem\/(picture|CSS).*</entry>
+	<entry key="Commision">commission</entry>
 	<entry key="Sum">sum</entry>
 
 	<!--=============================Error Message========================== -->
 	<entry key="IncorrectUserPassword">Sorry input data isn't correct.</entry>
+	<entry key="IncorrectInputData">Sorry check you input date.</entry>
 	<entry key="DuplicateUserInDB">Sorry User with this data is always exists</entry>
-	<entry key="PayOperationFail">You do not have enough money to pay or you are trying to pay with another currency.</entry>
+	<entry key="PayOperationFail">You do not have enough money to pay or you are trying	to pay with another currency.</entry>
+	<entry key="CantLoadHistory">Sorry can't load payment history. Try latter.</entry>
 	<entry key="CantLoadPayForm">Sorry, can't load your credit card list, please try later.</entry>
+	<entry key="CantReplenish">You chose the same card or your cards are connected with the same bank account.</entry>
 	<entry key="CantSaveUser">Can't register User with this registration data.</entry>
+	<entry key="CantFindUser">No users with this parameters.</entry>
+	<entry key="CantAddCard">Sorry can't add new card.</entry>
 	<entry key="SomeProblem">Sorry server doesn't work. Come back late :)</entry>
+	<entry key="CantUnlock">Sorry can't unlock</entry>
 	<entry key="DBProblem">"Sorry some problem with server. Please check your input data and try again."</entry>
-
+	<entry key="CantLock">Sorry can't unlock</entry>
+	<entry key="CantDelete">Sorry can't delete card</entry>
+	
 	<!--=============================QUERY================================== -->
-
 	<entry key="GetUserIdByLogin">SELECT user_id FROM user WHERE login = ?;</entry>
 	<entry key="GetUserPassword">SELECT password FROM user WHERE login = ?;</entry>
 	<entry key="DeleteUserById">DELETE FROM user WHERE user_id = ?;</entry>
-	<entry key="GetUserById">SELECT user_id, name, second_name, birth_date,	is_admin, login, password FROM user WHERE user_id = ?</entry>
+	<entry key="GetUserById">SELECT user_id, name, second_name, birth_date, is_admin, login, password FROM user WHERE user_id = ?</entry>
 	<entry key="UpdateUser">UPDATE user SET name = ?, second_name = ?, birth_date = ?, is_admin = ?, login = ?, password = ? WHERE user_id = ?;</entry>
 	<entry key="SaveUser">insert into user (name, second_name, birth_date, is_admin, login, password) values (?, ?, ?, ?, ?, ?);</entry>
+	<entry key="GetUserWithParam">SELECT * FROM user WHERE </entry>
+	<entry key="FindUserForAdmin">SELECT * FROM payment_system.user WHERE name = ? AND second_name = ? OR login = ?;</entry>
 
 
 	<entry key="BankAccountIdByCreditCardId">SELECT bank_account_id FROM credit_card WHERE credit_card_id= ?;</entry>
 	<entry key="DeleteBankAccountById">DELETE FROM bank_account WHERE bank_account_id = ?;</entry>
 	<entry key="GetAllBankAcoountById">SELECT bank_account_id, is_block as ba_block, acc_money, user_id, currency_abbreviation FROM bank_account INNER JOIN currency_type ON bank_account.currency_type = currency_type.currency_type_id WHERE user_id = ?;</entry>
 	<entry key="GetBankAccountById">SELECT bank_account_id, is_block AS ba_block, acc_money, currency_abbreviation, user_id FROM bank_account LEFT JOIN currency_type ON currency_type = currency_type_id WHERE bank_account_id = ?;</entry>
-	<entry key="UpdateBankAccount">UPDATE bank_account SET is_block = ?, acc_money = ?,	currency_type = ?, user_id = ? WHERE bank_account_id = ?;</entry>
-	<entry key="SaveBankAccount">INSERT INTO bank_account (is_block, acc_money,	currency_type, user_id) VALUES (?, ?, ?, ?);</entry>
+	<entry key="UpdateBankAccount">UPDATE bank_account SET is_block = ?, acc_money = ?, currency_type = ?, user_id = ? WHERE bank_account_id = ?;</entry>
+	<entry key="UnLockBankAccount">UPDATE bank_account SET is_block = 0 WHERE bank_account_id = ?;</entry>
+	<entry key="LockBankAccount">UPDATE bank_account SET is_block = 1 WHERE bank_account_id = ?;</entry>
+	<entry key="SaveBankAccount">INSERT INTO bank_account (is_block, acc_money, currency_type, user_id) VALUES (?, ?, ?, ?);</entry>
 
 
 	<entry key="GetAllCreditCardByBankAccountsId">SELECT credit_card_id, is_block AS cc_block, bank_account_id, currency_abbreviation FROM credit_card LEFT JOIN currency_type ON currency_type = currency_type_id WHERE bank_account_id = ?;</entry>
+	<entry key="UnlockCreditCardById">UPDATE credit_card SET is_block = 0 WHERE credit_card_id = ?;</entry>
 	<entry key="BlockCreditCardById">UPDATE credit_card SET is_block = 1 WHERE credit_card_id = ?;</entry>
-	<entry key="GetCreditCardById">SELECT credit_card_id, is_block AS cc_block,currency_type, bank_account_id, currency_type.currency_abbreviation FROM credit_card INNER JOIN currency_type ON credit_card.currency_type = currency_type.currency_type_id WHERE credit_card_id = ?;</entry>
+	<entry key="GetCreditCardById">SELECT credit_card_id, is_block AS cc_block,currency_type, bank_account_id, currency_type.currency_abbreviation FROM credit_card INNER JOIN	currency_type ON credit_card.currency_type = currency_type.currency_type_id WHERE credit_card_id = ?;</entry>
 	<entry key="UpdateCreditCard">UPDATE credit_card SET is_block = ?, currency_type = ?, bank_account = ? WHERE credit_card_id = ?;</entry>
 	<entry key="DeleteCraditCard">DELETE FROM credit_card WHERE credit_card_id = ?;</entry>
 	<entry key="SaveCreditCard">INSERT INTO credit_card (is_block, currency_type, bank_account_id) VALUES (?,?,?);</entry>
 
+	<entry key="SaveTransaction">INSERT INTO transaction (resurs_id, destination_id, operation_type, credit_card_id, operation_sum, trasaction_currency_type, t_date) VALUES (?, ?, ?, ?, ?, ?, ?);</entry>
+	<entry key="DeleteTransaction">DELETE FROM transaction WHERE resurs_id = ? AND destination_id = ? AND operation_type = ? AND credit_card_id = ? AND operation_sum = ? AND trasaction_currency_type = ? AND t_date = ?</entry>
+	<entry key="LoadHistory">SELECT resurs_id, destination_id, operation_type, credit_card_id, operation_sum, trasaction_currency_type, t_date FROM payment_system.transaction where resurs_id = ? and destination_id != 9 and destination_id != 10 and destination_id != 11 and destination_id != 12;</entry>
 
-	<entry key="SaveTransaction">INSERT INTO transaction (resurs_id, destination_id, operation_type, is_success, credit_card_id, operation_sum) VALUES (?,?,?,?,?,?);</entry>
+
+
+	<!--=================Constant for system work========================== -->
+	
+	<!--Exchange Rates -->
+	<entry key="buyBYN/USD">2.081</entry>
+	<entry key="buyBYN/EUR">2.325</entry>
+	<entry key="buyBYN/RUB">3.216</entry>
+	<entry key="buyBYN/BYN">1</entry>
+
+	<entry key="saleBYN/USD">2.087</entry>
+	<entry key="saleBYN/EUR">2.334</entry>
+	<entry key="saleBYN/RUB">3.229</entry>
+	<entry key="saleBYN/BYN">1</entry>
+	
+	<!--Inner bank account for different currency types -->
+	<entry key="MainBankAccuntIdUSD">9</entry>
+	<entry key="MainBankAccuntIdEUR">10</entry>
+	<entry key="MainBankAccuntIdRUB">11</entry>
+	<entry key="MainBankAccuntIdBYN">12</entry>
+
+	<entry key="TransactionCommision">0.005</entry>
 
 
 	<!-- -->
+
+	
 	<entry key=""></entry>
+		<entry key=""></entry>
 	<entry key=""></entry>
+		<entry key=""></entry>
 	<entry key=""></entry>
+		<entry key=""></entry>
+	<entry key=""></entry>
+		<entry key=""></entry>
+	<entry key=""></entry>
+		<entry key=""></entry>
+	<entry key=""></entry>
+		<entry key=""></entry>
+	<entry key=""></entry>
+	
 
 </properties>
-
-
-<!-- 
-	<entry key="GetBankAccountById(rezerv)">SELECT bank_account.bank_account_id,
-		bank_account.is_block AS ba_block,
-		acc_money, currency_abbreviation,
-		user_id, credit_card_id,
-		credit_card.is_block as cc_block
-		FROM
-		bank_account
-		LEFT JOIN credit_card ON bank_account.bank_account_id =
-		credit_card.bank_account_id
-		LEFT JOIN currency_type ON
-		bank_account.currency_type =
-		currency_type.currency_type_id
-		WHERE
-		bank_account.bank_account_id = ?;</entry>
-
-	<entry key="GetUserById(rezerv)">SELECT bank_account.bank_account_id,
-		bank_account.is_block AS ba_block,
-		acc_money, bank_account.user_id,
-		credit_card_id,
-		credit_card.is_block AS cc_block, name, second_name,
-		birth_date, is_admin,
-		login, password, currency_abbreviation
-		FROM
-		bank_account
-		LEFT JOIN credit_card ON bank_account.bank_account_id =
-		credit_card.bank_account_id
-		LEFT JOIN user ON bank_account.user_id =
-		user.user_id
-		LEFT JOIN currency_type ON bank_account.currency_type =
-		currency_type.currency_type_id
-		WHERE bank_account.user_id = ?
-		order by
-		bank_account.bank_account_id;</entry>
- -->
-
-
-
