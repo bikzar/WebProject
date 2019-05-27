@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
-import by.epam.webproject.voitenkov.service.UserService;
+import by.epam.webproject.voitenkov.model.service.UserService;
 import by.epam.webproject.voitenkov.util.ConstantConteiner;
 import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
 

@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.epam.webproject.voitenkov.controller.command.Command;
-import by.epam.webproject.voitenkov.dao.connectionpool.ConnectionPool;
+import by.epam.webproject.voitenkov.model.dal.connectionpool.ConnectionPool;
 import by.epam.webproject.voitenkov.util.ConstantConteiner;
 import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
 

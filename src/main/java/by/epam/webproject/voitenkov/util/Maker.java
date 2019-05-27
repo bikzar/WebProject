@@ -7,14 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import by.epam.webproject.voitenkov.dao.AbstractDAO;
-import by.epam.webproject.voitenkov.dao.daoexception.DaoException;
+import by.epam.webproject.voitenkov.model.dal.dao.AbstractDAO;
+import by.epam.webproject.voitenkov.model.dal.dao.daoexception.DaoException;
 import by.epam.webproject.voitenkov.model.entity.BankAccount;
 import by.epam.webproject.voitenkov.model.entity.CreditCard;
 import by.epam.webproject.voitenkov.model.entity.Transaction;
 import by.epam.webproject.voitenkov.model.entity.enumeration.CurrencyType;
 import by.epam.webproject.voitenkov.model.entity.enumeration.OperationType;
-import by.epam.webproject.voitenkov.service.serviceexception.ServiceLevelException;
+import by.epam.webproject.voitenkov.model.service.serviceexception.ServiceLevelException;
 import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
 
 /**

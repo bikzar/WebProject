@@ -25,10 +25,10 @@ import by.epam.webproject.voitenkov.controller.command.implementation.postcomman
 import by.epam.webproject.voitenkov.controller.command.implementation.postcommand.usercommand.LoadUnBlockPageCommand;
 import by.epam.webproject.voitenkov.controller.command.implementation.postcommand.usercommand.LogInCommand;
 import by.epam.webproject.voitenkov.controller.command.implementation.postcommand.usercommand.RegistrationCommand;
-import by.epam.webproject.voitenkov.service.implementation.BankAccountServiceImpl;
-import by.epam.webproject.voitenkov.service.implementation.CreditCardServiceImpl;
-import by.epam.webproject.voitenkov.service.implementation.TransactionServiceImpl;
-import by.epam.webproject.voitenkov.service.implementation.UserServiceImpl;
+import by.epam.webproject.voitenkov.model.service.implementation.BankAccountServiceImpl;
+import by.epam.webproject.voitenkov.model.service.implementation.CreditCardServiceImpl;
+import by.epam.webproject.voitenkov.model.service.implementation.TransactionServiceImpl;
+import by.epam.webproject.voitenkov.model.service.implementation.UserServiceImpl;
 
 /**
  * @author Sergey Voitenkov

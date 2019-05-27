@@ -4,8 +4,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
-import by.epam.webproject.voitenkov.service.BankAccountService;
-import by.epam.webproject.voitenkov.service.serviceexception.ServiceLevelException;
+import by.epam.webproject.voitenkov.model.service.BankAccountService;
+import by.epam.webproject.voitenkov.model.service.serviceexception.ServiceLevelException;
 import by.epam.webproject.voitenkov.util.ConstantConteiner;
 import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
 
