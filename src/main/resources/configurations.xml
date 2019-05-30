@@ -14,42 +14,30 @@
 	<entry key="isValidTimeOut">1</entry>
 	<entry key="poolSize">5</entry>
 	
-	
 
-	<!--========================Commands==================================== 
-	<entry key="GoToHistoryPageCommand">goToPaymentHistory</entry>
-	<entry key="GoToPayPageCommand">goToPayPage</entry>
-	<entry key="ReplenishAccount">replenishAccount</entry>
-	<entry key="LoadBankAccount">loadBankAccount</entry>
-	<entry key="BlockCreditCard">blockCard</entry>
-	<entry key="LoadPayHistory">loadPayHistory</entry>
-	-->
-	<entry key="GoToLogInPage">goToLogInPage</entry>
+	<!--========================Commands==================================-->
+	<entry key="DefaultCommand">Default</entry>
+	<entry key="GoToLogInPage">go_To_LogIn_Page</entry>
 	<entry key="Registration">registration</entry>
 	<entry key="Command">command</entry>
 	<entry key="Login">login</entry>
 	
-	<!-- <entry key="Default">default</entry>
-	<entry key="Logout">logout</entry>
-	<entry key="Pay">pay</entry>
-	<entry key="LoadUnBlockPageCommands"></entry>
-	<entry key="UnLockCommand">unLockCard</entry> -->
-	
 
 	<!--============================Path==================================== -->
-	<entry key="BankAccountDetailsPage">/JSP/BankAccountPage.jsp</entry>
-	<entry key="GoToReplanishPage">/JSP/ReplenishPage.jsp</entry>
-	<entry key="RegistrationPage">/JSP/RegistrationPage.jsp</entry>
+	<entry key="BankAccountDetailsPage">./JSP/BankAccountPage.jsp</entry>
+	<entry key="GoToReplanishPage">./JSP/ReplenishPage.jsp</entry>
+	<entry key="RegistrationPage">./JSP/RegistrationPage.jsp</entry>
 	<entry key="RightReEnterPath">/paymentsystem/start</entry>
-	<entry key="UnBlockCardPage">/JSP/UnBlockUserCardPage.jsp</entry>
-	<entry key="GoToPayPage">/JSP/PayPage.jsp</entry>
-	<entry key="DefaultPage">/JSP/UserPage.jsp</entry>
-	<entry key="HistoryPage">/JSP/HistoryPage.jsp</entry>
+	<entry key="UnlockCardPage">./JSP/UnlockUserCardPage.jsp</entry>
+	<entry key="GoToPayPage">./JSP/PayPage.jsp</entry>
+	<entry key="DefaultPage">./JSP/UserPage.jsp</entry>
+	<entry key="HistoryPage">./JSP/HistoryPage.jsp</entry>
 	<entry key="LoginPage">index.jsp</entry>
-	<entry key="ErrorPage">/JSP/ErrorPage.jsp</entry>
-	<entry key="AdminPage">/JSP/AdminPage.jsp</entry>
-	<entry key="UserPage">/JSP/UserPage.jsp</entry>
-	<entry key="SearchPage">/JSP/SearchPage.jsp</entry>
+	<entry key="ErrorPage">./JSP/ErrorPage.jsp</entry>
+	<entry key="AdminPage">./JSP/AdminPage.jsp</entry>
+	<entry key="UserPage">JSP/UserPage.jsp</entry>
+	<entry key="SearchPage">./JSP/SearchPage.jsp</entry>
+	<entry key="GoResultPage">./JSP/ResultPage.jsp</entry>
 	
 	
 
@@ -74,8 +62,6 @@
 	<entry key="User">user</entry>
 	<entry key="FUserId">userID</entry>
 	
-	
-	
 
 	<!--=============================Bank Account Constants================= -->
 
@@ -92,7 +78,6 @@
 	<entry key="FBankAccountID">accountID</entry>
 	
 	
-	
 
 	<!--=============================Credit Card Constants================== -->
 	<entry key="FDestionationCardId">destinationCardId</entry>
@@ -104,8 +89,6 @@
 
 	<!--Form name -->
 	<entry key="FCreditCardID">cardId</entry>
-	
-	
 	
 
 	<!--=============================Transaction constant================== -->
@@ -120,26 +103,33 @@
 	<entry key="DBTransactionCurrency">trasaction_currency_type</entry>
 	<entry key="DBTransactionDate">t_date</entry>
 	
-	
-	
 
 	<!--=============================General constant======================= -->
 	<entry key="RequestErrorAttribName">message</entry>
 	<entry key="PartMainBankAccountName">MainBankAccuntId</entry>
 	<entry key="IsAfterCalculation">isAfterCalc</entry>
-	<entry key="UrlRegexFirstEnter">\/paymentsystem\/(start).*</entry>
 	<entry key="SerializationPath">/home/sergey/Desktop/serial/</entry>
 	<entry key="DateTimePattern">uuuu-MM-dd H:mm:ss</entry>
 	<entry key="TransactionSum">transactionSum</entry>
-	<entry key="ContentRegex">\/paymentsystem\/(picture|CSS).*</entry>
+	<entry key="MaxHumanLife">120</entry>
+	<entry key="ComingOfAge">18</entry>
 	<entry key="Commision">commission</entry>
 	<entry key="Sum">sum</entry>
+	
+	
+	<entry key="UrlRegexFirstEnter">\/paymentsystem\/(start).*</entry>
+	<entry key="SimpleTextPattern">^[A-Za-zА-Яа-я]{3,16}$</entry>
+	<entry key="PasswordPattern">^[a-zA-Z0-9]{4,10}$</entry>
+	<entry key="LoginPattern">^[A-Za-zА-Яа-я\d\_\-]{3,20}$</entry>
+	<entry key="ContentRegex">\/paymentsystem\/(picture|CSS).*</entry>
+	
+	
 
 	<!--=============================Error Message========================== -->
 	<entry key="IncorrectUserPassword">Sorry input data isn't correct.</entry>
 	<entry key="IncorrectInputData">Sorry check you input date.</entry>
 	<entry key="DuplicateUserInDB">Sorry User with this data is always exists</entry>
-	<entry key="PayOperationFail">You do not have enough money to pay or you are trying	to pay with another currency.</entry>
+	<entry key="PayOperationFail">You do not have enough money to pay or you are trying	to pay with another card.</entry>
 	<entry key="CantLoadHistory">Sorry can't load payment history. Try latter.</entry>
 	<entry key="CantLoadPayForm">Sorry, can't load your credit card list, please try later.</entry>
 	<entry key="CantReplenish">You chose the same card or your cards are connected with the same bank account.</entry>
@@ -151,6 +141,14 @@
 	<entry key="DBProblem">"Sorry some problem with server. Please check your input data and try again."</entry>
 	<entry key="CantLock">Sorry can't unlock</entry>
 	<entry key="CantDelete">Sorry can't delete card</entry>
+	<entry key="DuplicateUserLogin">Sorry this login is taken</entry>
+	<entry key="InvalidName">Invalid name (use only letter).</entry>
+	<entry key="InvalidSecondName">Invalid second name (use only letters).</entry>
+	<entry key="InvalidPassword">Invalid password (length 4-10 characters, use letters and numbers).</entry>
+	<entry key="InvalidBirthDate">Invalid birth date (your age should be 18-120).</entry>
+	<entry key="InvalidLogin">Invalid login (length 3-20 characters, use letters and numbers and _ or -).</entry>
+	
+	
 	
 	<!--=============================QUERY================================== -->
 	<entry key="GetUserIdByLogin">SELECT user_id FROM user WHERE login = ?;</entry>
@@ -207,24 +205,5 @@
 	<entry key="MainBankAccuntIdBYN">12</entry>
 
 	<entry key="TransactionCommision">0.005</entry>
-
-
-	<!-- -->
-
-	
-	<entry key=""></entry>
-		<entry key=""></entry>
-	<entry key=""></entry>
-		<entry key=""></entry>
-	<entry key=""></entry>
-		<entry key=""></entry>
-	<entry key=""></entry>
-		<entry key=""></entry>
-	<entry key=""></entry>
-		<entry key=""></entry>
-	<entry key=""></entry>
-		<entry key=""></entry>
-	<entry key=""></entry>
-	
 
 </properties>
