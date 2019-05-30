@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import by.epam.webproject.voitenkov.model.builder.builderexception.CantBuildException;
 import by.epam.webproject.voitenkov.model.builder.formbuilder.FromFormBuilder;
 import by.epam.webproject.voitenkov.model.builder.formbuilder.implementation.UserFromFormBuilder;
 import by.epam.webproject.voitenkov.model.dal.dao.DAOFactory;
@@ -23,8 +24,10 @@ import by.epam.webproject.voitenkov.model.service.UserService;
 import by.epam.webproject.voitenkov.model.service.serviceexception.CantRegistredUserException;
 import by.epam.webproject.voitenkov.model.service.serviceexception.ServiceLevelException;
 import by.epam.webproject.voitenkov.util.ConstantConteiner;
+import by.epam.webproject.voitenkov.util.Encoder;
 import by.epam.webproject.voitenkov.util.Maker;
 import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
+import by.epam.webproject.voitenkov.util.validator.Validator;
 
 /**
  * @author Sergey Voitenkov
@@ -60,19 +63,30 @@ public class UserServiceImpl implements UserService {
 
 		if (req != null) {
 
-			User user = builder.build(req);
-
 			try {
+
+				User user = builder.build(req);
 
 				result = USER_DAO.save(user);
 
-				req.getSession().setAttribute(
-						ConfigurationReader.getProperty(ConstantConteiner.USER),
-						user);
+				if (user != null) {
 
-			} catch (DaoException e) {
+					long id = USER_DAO.getUserIDByLogin(user.getLogin());
+
+					if (Validator.validateID(id)) {
+						user.setUserId(id);
+					}
+
+					req.getSession().setAttribute(ConfigurationReader
+							.getProperty(ConstantConteiner.USER), user);
+				}
+
+			} catch (DaoException | CantBuildException e) {
+
+				logger.error(e);
 
 				throw new CantRegistredUserException(e.getMessage());
+
 			}
 		}
 
@@ -86,11 +100,13 @@ public class UserServiceImpl implements UserService {
 
 		if (req != null) {
 
-			String login = req.getParameter(
-					ConfigurationReader.getProperty(ConstantConteiner.F_LOGIN));
+			String login = Encoder
+					.encodeToUTF8(req.getParameter(ConfigurationReader
+							.getProperty(ConstantConteiner.F_LOGIN)));
 
-			String password = req.getParameter(ConfigurationReader
-					.getProperty(ConstantConteiner.F_PASSWORD));
+			String password = Encoder
+					.encodeToUTF8(req.getParameter(ConfigurationReader
+							.getProperty(ConstantConteiner.F_PASSWORD)));
 
 			String passwordTemp = USER_DAO.getUserPassword(login);
 
@@ -136,81 +152,69 @@ public class UserServiceImpl implements UserService {
 
 		if (req != null) {
 
-			try {
-				String name = req.getParameter(ConfigurationReader
-						.getProperty(ConstantConteiner.F_USER_NAME));
+			String name = req.getParameter(ConfigurationReader
+					.getProperty(ConstantConteiner.F_USER_NAME));
 
-				name = encodeString(name);
+			name = Encoder.encodeToUTF8(name);
 
-				String secondName = req.getParameter(ConfigurationReader
-						.getProperty(ConstantConteiner.F_USER_SECOND_NAME));
+			String secondName = req.getParameter(ConfigurationReader
+					.getProperty(ConstantConteiner.F_USER_SECOND_NAME));
 
-				secondName = encodeString(secondName);
+			secondName = Encoder.encodeToUTF8(secondName);
 
-				String login = req.getParameter(ConfigurationReader
-						.getProperty(ConstantConteiner.F_LOGIN));
+			String login = req.getParameter(
+					ConfigurationReader.getProperty(ConstantConteiner.F_LOGIN));
 
-				login = encodeString(login);
+			login = Encoder.encodeToUTF8(login);
 
-				if (name != null && !name.isEmpty() && secondName != null
-						&& !secondName.isEmpty()) {
+			if (name != null && !name.isEmpty() && secondName != null
+					&& !secondName.isEmpty()) {
 
-					try {
+				try {
 
-						List<User> list = USER_DAO.getUserList(name, secondName,
-								login);
-						
+					List<User> list = USER_DAO.getUserList(name, secondName,
+							login);
+
+					req.setAttribute(ConfigurationReader
+							.getProperty(ConstantConteiner.F_USER_NAME), name);
+
+					req.setAttribute(
+							ConfigurationReader.getProperty(
+									ConstantConteiner.F_USER_SECOND_NAME),
+							secondName);
+
+					req.setAttribute(ConfigurationReader
+							.getProperty(ConstantConteiner.F_LOGIN), login);
+
+					if (!list.isEmpty()) {
+
+						req.setAttribute(ConstantConteiner.USER_LIST, list);
+
 						req.setAttribute(
 								ConfigurationReader.getProperty(
-										ConstantConteiner.F_USER_NAME),
-								name);
+										ConstantConteiner.IS_AFTER_CALCULATION),
+								true);
+					} else {
 
-						req.setAttribute(ConfigurationReader.getProperty(
-								ConstantConteiner.F_USER_SECOND_NAME),
-								secondName);
-
-						req.setAttribute(ConfigurationReader.getProperty(
-								ConstantConteiner.F_LOGIN), login);
-
-						if (!list.isEmpty()) {
-							
-							req.setAttribute(ConstantConteiner.USER_LIST, list);
-
-							req.setAttribute(ConfigurationReader.getProperty(
-									ConstantConteiner.IS_AFTER_CALCULATION),
-									true);
-						} else {
-
-							throw new ServiceLevelException(
-									ConfigurationReader.getProperty(
-											ConstantConteiner.CANT_FIND_USER_MSG));
-						}
-
-					} catch (DaoException e) {
-						logger.error(
-								"Try to execute getUserListByQuery() methood in UserServiceImpl class"
-										+ e);
-						throw new ServiceLevelException(ConfigurationReader
-								.getProperty(ConstantConteiner.DB_PROBLEM_MSG));
+						throw new ServiceLevelException(
+								ConfigurationReader.getProperty(
+										ConstantConteiner.CANT_FIND_USER_MSG));
 					}
 
-				} else {
+				} catch (DaoException e) {
+					logger.error(
+							"Try to execute getUserListByQuery() methood in UserServiceImpl class"
+									+ e);
 					throw new ServiceLevelException(ConfigurationReader
-							.getProperty(ConstantConteiner.INCORRECT_DATA_MSG));
+							.getProperty(ConstantConteiner.DB_PROBLEM_MSG));
 				}
 
-			} catch (UnsupportedEncodingException e1) {
+			} else {
 				throw new ServiceLevelException(ConfigurationReader
-						.getProperty(ConstantConteiner.SOME_PROBLEM_MSG));
+						.getProperty(ConstantConteiner.INCORRECT_DATA_MSG));
 			}
 
 		}
 
-	}
-
-	private String encodeString(String text)
-			throws UnsupportedEncodingException {
-		return new String(text.getBytes(StandardCharsets.ISO_8859_1),
-				ConstantConteiner.UTF_8_ENCODING);
 	}
 }

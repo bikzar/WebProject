@@ -7,8 +7,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import by.epam.webproject.voitenkov.controller.command.Command;
+import by.epam.webproject.voitenkov.controller.command.CommandDispatcher;
+import by.epam.webproject.voitenkov.controller.command.CommandResult;
 import by.epam.webproject.voitenkov.model.dal.connectionpool.ConnectionPool;
 import by.epam.webproject.voitenkov.util.ConstantConteiner;
 import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
@@ -27,33 +30,44 @@ public class MainController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		rocessingRequest(request, response);
+
+		processingRequest(request, response);
+
 	}
 
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		rocessingRequest(request, response);
+
+		processingRequest(request, response);
 	}
 
-	private void rocessingRequest(HttpServletRequest request,
+	private void processingRequest(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		String nextPage = null;
-
+		CommandResult result = null;
 		Command command = CommandDispatcher.getCommand(request);
 
 		if (command != null) {
-			nextPage = command.execute(request, response);
+			result = command.execute(request, response);
 		}
 
-		if (nextPage == null) {
-			nextPage = ConfigurationReader
-					.getProperty(ConstantConteiner.LOGIN_PAGE);
+		if (result == null) {
+
+			result = new CommandResult();
 		}
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher(nextPage);
+		if (result.isForvardAction()) {
 
-		dispatcher.forward(request, response);
+			RequestDispatcher dispatcher = request
+					.getRequestDispatcher(result.getPath());
+
+			dispatcher.forward(request, response);
+
+		} else {
+
+			response.sendRedirect(result.getPath());
+
+		}
 
 	}
 

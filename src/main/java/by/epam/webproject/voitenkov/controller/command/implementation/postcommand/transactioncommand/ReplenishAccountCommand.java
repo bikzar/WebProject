@@ -3,6 +3,7 @@ package by.epam.webproject.voitenkov.controller.command.implementation.postcomma
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.epam.webproject.voitenkov.controller.command.CommandResult;
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
 import by.epam.webproject.voitenkov.model.service.TransactionService;
 import by.epam.webproject.voitenkov.model.service.serviceexception.ServiceLevelException;
@@ -22,27 +23,33 @@ public class ReplenishAccountCommand
 	}
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) {
+	public CommandResult execute(HttpServletRequest req,
+			HttpServletResponse resp) {
 
-		String nextPage = ConfigurationReader
-				.getProperty(ConstantConteiner.USER_PAGE);
-		
-		try {
-			
-			this.getService().makeReplenishOperation(req);
-			
-		} catch (ServiceLevelException e) {
-			
-			req.setAttribute(
-					ConfigurationReader.getProperty(
-							ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
-					e.getMessage());
+		CommandResult result = new CommandResult(ConfigurationReader
+				.getProperty(ConstantConteiner.GO_TO_REPLANISH_PAGE), true);
 
-			nextPage = ConfigurationReader
-					.getProperty(ConstantConteiner.ERROR_PAGE);
+		if (req != null && this.getService() != null) {
+
+			try {
+
+				if (this.getService().makeReplenishOperation(req)) {
+					req.getSession().setAttribute(
+							ConstantConteiner.IS_SUCCESS_ATTRIB, true);
+					result.setForvardAction(false);
+					result.setPath("start?command=go_to_result_page");
+				}
+
+			} catch (ServiceLevelException e) {
+
+				req.setAttribute(
+						ConfigurationReader.getProperty(
+								ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
+						e.getMessage());
+
+			}
 		}
-
-		return nextPage;
+		return result;
 	}
 
 }

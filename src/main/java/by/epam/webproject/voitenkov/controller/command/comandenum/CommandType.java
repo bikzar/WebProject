@@ -9,6 +9,8 @@ import by.epam.webproject.voitenkov.controller.command.implementation.gotopageco
 import by.epam.webproject.voitenkov.controller.command.implementation.gotopagecommand.GoToPaymentHistoryPageCommand;
 import by.epam.webproject.voitenkov.controller.command.implementation.gotopagecommand.GoToRegistrationPageCommand;
 import by.epam.webproject.voitenkov.controller.command.implementation.gotopagecommand.GoToReplenishPageCommand;
+import by.epam.webproject.voitenkov.controller.command.implementation.gotopagecommand.GoToResultPageCommand;
+import by.epam.webproject.voitenkov.controller.command.implementation.gotopagecommand.GoToUnlockPageCommand;
 import by.epam.webproject.voitenkov.controller.command.implementation.gotopagecommand.LoadSearchFormCommand;
 import by.epam.webproject.voitenkov.controller.command.implementation.postcommand.bankaccouncommand.LoadBankAccountCommand;
 import by.epam.webproject.voitenkov.controller.command.implementation.postcommand.bankaccouncommand.LockBankAccountCommand;
@@ -38,31 +40,32 @@ import by.epam.webproject.voitenkov.model.service.implementation.UserServiceImpl
 public enum CommandType {
 	// All CommandType name should be write in Uppercase like the same command
 	// on jsp page.
-	CALCULATECOMMISSION(new CalculateCommissionCommand(TransactionServiceImpl.getInstance())),
-	GOTOPAYMENTHISTORY(new GoToPaymentHistoryPageCommand()),
-	GOTOREPLENISHPAGE(new GoToReplenishPageCommand(BankAccountServiceImpl.getInstance())),
-	REPLENISHACCOUNT(new ReplenishAccountCommand(TransactionServiceImpl.getInstance())),
-	REGISTRATIONPAGE(new GoToRegistrationPageCommand()),
-	LOADBANKACCOUNT(new LoadBankAccountCommand(BankAccountServiceImpl.getInstance())),
-	LOADUNBLOCKPAGE(new LoadUnBlockPageCommand(BankAccountServiceImpl.getInstance())),
-	LOADSEARCHFORM(new LoadSearchFormCommand()),
-	LOADPAYHISTORY(new LoadHistoryCommand(TransactionServiceImpl.getInstance())),
-	GOTOLOGINPAGE(new GoToLogInPageCommand(UserServiceImpl.getInstance())), 
-	UNLOCKACCOUNT(new UnLockBankAccountCommand(BankAccountServiceImpl.getInstance())),
-	CHANGELOCALE(new ChangeLanguageComand()),
+	CALCULATE_COMMISSION(new CalculateCommissionCommand(TransactionServiceImpl.getInstance())),
+	GO_TO_PAYMENT_HISTORY(new GoToPaymentHistoryPageCommand()),
+	GO_TO_REPLENISH_PAGE(new GoToReplenishPageCommand(BankAccountServiceImpl.getInstance())),
+	REPLENISH_ACCOUNT(new ReplenishAccountCommand(TransactionServiceImpl.getInstance())),
+	REGISTRATION_PAGE(new GoToRegistrationPageCommand()),
+	LOAD_BANK_ACCOUNT(new LoadBankAccountCommand(BankAccountServiceImpl.getInstance())),
+	GO_TO_RESULT_PAGE(new GoToResultPageCommand()),
+	GO_TO_UNLOCK_PAGE(new GoToUnlockPageCommand()),
+	LOAD_UNLOCK_PAGE(new LoadUnBlockPageCommand(BankAccountServiceImpl.getInstance())),
+	LOAD_SEARCH_FORM(new LoadSearchFormCommand()),
+	LOAD_PAY_HISTORY(new LoadHistoryCommand(TransactionServiceImpl.getInstance())),
+	GO_TO_LOGIN_PAGE(new GoToLogInPageCommand(UserServiceImpl.getInstance())), 
+	UNLOCK_ACCOUNT(new UnLockBankAccountCommand(BankAccountServiceImpl.getInstance())),
+	GO_TO_PAY_PAGE(new GoToPayPageCommand(BankAccountServiceImpl.getInstance())),
+	CHANGE_LOCALE(new ChangeLanguageComand()),
 	REGISTRATION(new RegistrationCommand(UserServiceImpl.getInstance())),
-	LOCKACCOUNT(new LockBankAccountCommand(BankAccountServiceImpl.getInstance())),
-	GOTOPAYPAGE(new GoToPayPageCommand(BankAccountServiceImpl.getInstance())),
-	UNLOCKCARD(new UnLockCardCommand(CreditCardServiceImpl.getInstance())),
-	DELETECARD(new DeleteCardCommand(CreditCardServiceImpl.getInstance())),
-	BLOCKCARD(new BlockCreditCardCommand(CreditCardServiceImpl.getInstance())),
-	FINDUSER(new FindUserCommand(UserServiceImpl.getInstance())),
+	LOCK_ACCOUNT(new LockBankAccountCommand(BankAccountServiceImpl.getInstance())),
+	UNLOCK_CARD(new UnLockCardCommand(CreditCardServiceImpl.getInstance())),
+	DELETE_CARD(new DeleteCardCommand(CreditCardServiceImpl.getInstance())),
+	LOCK_CARD(new BlockCreditCardCommand(CreditCardServiceImpl.getInstance())),
+	FIND_USER(new FindUserCommand(UserServiceImpl.getInstance())),
 	DEFAULT(new DefaultCommand()),
-	ADDCARD(new AddCardCommand(CreditCardServiceImpl.getInstance())),
-	LOGOUT(new LogOutCommand(UserServiceImpl.getInstance())),
+	ADD_CARD(new AddCardCommand(CreditCardServiceImpl.getInstance())),
+	LOG_OUT(new LogOutCommand(UserServiceImpl.getInstance())),
 	LOGIN(new LogInCommand(UserServiceImpl.getInstance())),
 	PAY(new PayCommand(TransactionServiceImpl.getInstance()));
-	
 	private Command command;
 
 	private CommandType(Command command) {

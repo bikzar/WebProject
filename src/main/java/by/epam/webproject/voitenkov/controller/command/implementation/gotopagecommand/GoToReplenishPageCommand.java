@@ -3,6 +3,7 @@ package by.epam.webproject.voitenkov.controller.command.implementation.gotopagec
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.epam.webproject.voitenkov.controller.command.CommandResult;
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
 import by.epam.webproject.voitenkov.model.service.BankAccountService;
 import by.epam.webproject.voitenkov.model.service.serviceexception.ServiceLevelException;
@@ -12,36 +13,39 @@ import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
 /**
  * @author Sergey Voitenkov
  *
- * May 18, 2019
+ *         May 18, 2019
  */
-public class GoToReplenishPageCommand extends AbstractCommand<BankAccountService> {
-	
+public class GoToReplenishPageCommand
+		extends AbstractCommand<BankAccountService> {
+
 	public GoToReplenishPageCommand(BankAccountService service) {
 		super(service);
 	}
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) {
-		
-		String page = ConfigurationReader
-				.getProperty(ConstantConteiner.GO_TO_REPLANISH_PAGE);
+	public CommandResult execute(HttpServletRequest req,
+			HttpServletResponse resp) {
 
-		try {
+		CommandResult result = new CommandResult(ConfigurationReader
+				.getProperty(ConstantConteiner.GO_TO_REPLANISH_PAGE), true);
 
-			this.getService().loadPayForm(req);
+		if (req != null && this.getService() != null) {
 
-		} catch (ServiceLevelException e) {
+			try {
 
-			page = ConfigurationReader
-					.getProperty(ConstantConteiner.ERROR_PAGE);
+				this.getService().loadPayForm(req);
 
-			req.setAttribute(
-					ConfigurationReader.getProperty(
-							ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
-					e.getMessage());
+			} catch (ServiceLevelException e) {
+
+				result = new CommandResult(ConfigurationReader
+						.getProperty(ConstantConteiner.ERROR_PAGE));
+
+				req.setAttribute(
+						ConfigurationReader.getProperty(
+								ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
+						e.getMessage());
+			}
 		}
-
-		return page;
+		return result;
 	}
-
 }

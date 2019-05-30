@@ -3,6 +3,7 @@ package by.epam.webproject.voitenkov.controller.command.implementation.gotopagec
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.epam.webproject.voitenkov.controller.command.CommandResult;
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
 import by.epam.webproject.voitenkov.model.service.BankAccountService;
 import by.epam.webproject.voitenkov.model.service.serviceexception.ServiceLevelException;
@@ -21,26 +22,30 @@ public class GoToPayPageCommand extends AbstractCommand<BankAccountService> {
 	}
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) {
+	public CommandResult execute(HttpServletRequest req,
+			HttpServletResponse resp) {
 
-		String page = ConfigurationReader
-				.getProperty(ConstantConteiner.GO_TO_PAY_PAGE);
+		CommandResult result = new CommandResult(ConfigurationReader
+				.getProperty(ConstantConteiner.GO_TO_PAY_PAGE), true);
 
-		try {
+		if (req != null && this.getService() != null) {
 
-			this.getService().loadPayForm(req);
+			try {
 
-		} catch (ServiceLevelException e) {
+				this.getService().loadPayForm(req);
 
-			page = ConfigurationReader
-					.getProperty(ConstantConteiner.ERROR_PAGE);
+			} catch (ServiceLevelException e) {
 
-			req.setAttribute(
-					ConfigurationReader.getProperty(
-							ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
-					e.getMessage());
+				result = new CommandResult(ConfigurationReader
+						.getProperty(ConstantConteiner.ERROR_PAGE), true);
+
+				req.setAttribute(
+						ConfigurationReader.getProperty(
+								ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
+						e.getMessage());
+			}
 		}
-
-		return page;
+		
+		return result;
 	}
 }

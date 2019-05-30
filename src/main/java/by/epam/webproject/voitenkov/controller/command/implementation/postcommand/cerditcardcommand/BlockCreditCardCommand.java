@@ -3,6 +3,7 @@ package by.epam.webproject.voitenkov.controller.command.implementation.postcomma
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.epam.webproject.voitenkov.controller.command.CommandResult;
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
 import by.epam.webproject.voitenkov.model.entity.User;
 import by.epam.webproject.voitenkov.model.service.CreditCardService;
@@ -22,38 +23,42 @@ public class BlockCreditCardCommand extends AbstractCommand<CreditCardService> {
 	}
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) {
+	public CommandResult execute(HttpServletRequest req,
+			HttpServletResponse resp) {
 
-		String result = ConfigurationReader
-				.getProperty(ConstantConteiner.BANK_ACCOUNT_DETAILS_PAGE);
+		CommandResult result = null;
 
-		try {
+		if (req != null && this.getService() != null) {
 
-			this.getService().lockCreditCard(req);
+			try {
 
-			if (req != null) {
-				User user = (User) req.getSession().getAttribute(ConfigurationReader
-						.getProperty(ConstantConteiner.USER));
+				this.getService().lockCreditCard(req);
+
+				User user = (User) req.getSession()
+						.getAttribute(ConfigurationReader
+								.getProperty(ConstantConteiner.USER));
+
 				if (user != null && user.isAdmin()) {
-					result = ConfigurationReader
-							.getProperty(ConstantConteiner.UNBLOCK_CARD_PAGE);
+
+					result = new CommandResult(ConfigurationReader.getProperty(
+							ConstantConteiner.UNLOCK_CARD_PAGE), true);
+
+				} else {
+
+					result = new CommandResult(ConfigurationReader.getProperty(
+							ConstantConteiner.BANK_ACCOUNT_DETAILS_PAGE), true);
 				}
 
+			} catch (ServiceLevelException e) {
+
+				req.setAttribute(
+						ConfigurationReader.getProperty(
+								ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
+						e.getMessage());
+
 			}
-
-		} catch (ServiceLevelException e) {
-
-			req.setAttribute(
-					ConfigurationReader.getProperty(
-							ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
-					e.getMessage());
-
-			result = ConfigurationReader
-					.getProperty(ConstantConteiner.ERROR_PAGE);
-
 		}
-
+		
 		return result;
 	}
-
 }

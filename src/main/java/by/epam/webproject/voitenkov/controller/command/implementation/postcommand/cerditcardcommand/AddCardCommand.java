@@ -3,6 +3,7 @@ package by.epam.webproject.voitenkov.controller.command.implementation.postcomma
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.epam.webproject.voitenkov.controller.command.CommandResult;
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
 import by.epam.webproject.voitenkov.model.service.CreditCardService;
 import by.epam.webproject.voitenkov.model.service.serviceexception.ServiceLevelException;
@@ -21,23 +22,27 @@ public class AddCardCommand extends AbstractCommand<CreditCardService> {
 	}
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) {
+	public CommandResult execute(HttpServletRequest req, HttpServletResponse resp) {
 
-		String nextPage = ConfigurationReader
-				.getProperty(ConstantConteiner.UNBLOCK_CARD_PAGE);
+		CommandResult result = new CommandResult(ConfigurationReader
+				.getProperty(ConstantConteiner.UNLOCK_CARD_PAGE), true);
 
 		try {
 
-			this.getService().addCard(req);
+			if(this.getService().addCard(req)) {
+				result.setForvardAction(false);
+				result.setPath("start?command=GO_TO_UNLOCK_PAGE");
+			}
 			
 		} catch (ServiceLevelException e) {
+			
 			req.setAttribute(
 					ConfigurationReader.getProperty(
 							ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
 					e.getMessage());
 		}
 
-		return nextPage;
+		return result;
 	}
 
 }

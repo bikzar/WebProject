@@ -3,6 +3,7 @@ package by.epam.webproject.voitenkov.controller.command.implementation.postcomma
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.epam.webproject.voitenkov.controller.command.CommandResult;
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
 import by.epam.webproject.voitenkov.model.service.TransactionService;
 import by.epam.webproject.voitenkov.model.service.serviceexception.ServiceLevelException;
@@ -22,24 +23,28 @@ public class CalculateCommissionCommand
 	}
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) {
+	public CommandResult execute(HttpServletRequest req,
+			HttpServletResponse resp) {
 
-		String nextPage = ConfigurationReader
-				.getProperty(ConstantConteiner.GO_TO_REPLANISH_PAGE);
+		CommandResult result = new CommandResult(ConfigurationReader
+				.getProperty(ConstantConteiner.GO_TO_REPLANISH_PAGE), true);
 
-		try {
-			
-			this.getService().calculateCommision(req);
-			
-		} catch (ServiceLevelException e) {
-			
-			req.setAttribute(
-					ConfigurationReader.getProperty(
-							ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
-					e.getMessage());
+		if (req != null && this.getService() != null) {
+
+			try {
+
+				this.getService().calculateCommision(req);
+
+			} catch (ServiceLevelException e) {
+
+				req.setAttribute(
+						ConfigurationReader.getProperty(
+								ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
+						e.getMessage());
+			}
 		}
 
-		return nextPage;
+		return result;
 	}
 
 }

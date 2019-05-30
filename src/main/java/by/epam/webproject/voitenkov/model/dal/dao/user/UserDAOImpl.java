@@ -54,8 +54,7 @@ public class UserDAOImpl extends AbstractDAO<User> implements UserDAO {
 							ConstantConteiner.GET_USER_ID_BY_LOGIN),
 					userLogin)) {
 
-				if (resSet != null) {
-					resSet.next();
+				if (resSet != null && resSet.next()) {
 
 					userID = resSet.getInt(ConfigurationReader
 							.getProperty(ConstantConteiner.DB_USER_ID));

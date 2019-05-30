@@ -10,6 +10,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public interface Command {
 	
-	public String execute(HttpServletRequest req, HttpServletResponse resp);
+	public CommandResult execute(HttpServletRequest req, HttpServletResponse resp);
 	
 }

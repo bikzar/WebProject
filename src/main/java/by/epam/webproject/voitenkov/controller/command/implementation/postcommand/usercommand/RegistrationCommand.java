@@ -3,6 +3,7 @@ package by.epam.webproject.voitenkov.controller.command.implementation.postcomma
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.epam.webproject.voitenkov.controller.command.CommandResult;
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
 import by.epam.webproject.voitenkov.model.dal.dao.daoexception.DuplicateUserException;
 import by.epam.webproject.voitenkov.model.service.UserService;
@@ -26,19 +27,21 @@ public class RegistrationCommand extends AbstractCommand<UserService> {
 	 *         request is null.
 	 */
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) {
+	public CommandResult execute(HttpServletRequest req,
+			HttpServletResponse resp) {
 
-		String result = ConfigurationReader
-				.getProperty(ConstantConteiner.LOGIN_PAGE);
+		CommandResult result = new CommandResult(ConfigurationReader
+				.getProperty(ConstantConteiner.GO_REGISTRATION_PAGE), true);
 
 		if (req != null && this.getService() != null) {
 
 			try {
 
-				this.getService().registration(req);
+				if (this.getService().registration(req)) {
 
-				result = ConfigurationReader
-						.getProperty(ConstantConteiner.USER_PAGE);
+					result = new CommandResult("start?command=Default", false);
+
+				}
 
 			} catch (CantRegistredUserException | DuplicateUserException e) {
 
@@ -46,9 +49,6 @@ public class RegistrationCommand extends AbstractCommand<UserService> {
 						ConfigurationReader.getProperty(
 								ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
 						e.getMessage());
-
-				result = ConfigurationReader
-						.getProperty(ConstantConteiner.GO_REGISTRATION_PAGE);
 			}
 		}
 

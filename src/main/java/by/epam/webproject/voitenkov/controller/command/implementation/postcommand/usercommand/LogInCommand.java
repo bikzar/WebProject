@@ -3,6 +3,7 @@ package by.epam.webproject.voitenkov.controller.command.implementation.postcomma
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.epam.webproject.voitenkov.controller.command.CommandResult;
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
 import by.epam.webproject.voitenkov.model.dal.dao.daoexception.DaoException;
 import by.epam.webproject.voitenkov.model.entity.User;
@@ -22,10 +23,10 @@ public class LogInCommand extends AbstractCommand<UserService> {
 	}
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) {
+	public CommandResult execute(HttpServletRequest req,
+			HttpServletResponse resp) {
 
-		String result = ConfigurationReader
-				.getProperty(ConstantConteiner.LOGIN_PAGE);
+		CommandResult result = null;
 
 		if (req != null && this.getService() != null) {
 
@@ -42,11 +43,16 @@ public class LogInCommand extends AbstractCommand<UserService> {
 						User user = (User) userTemp;
 
 						if (user.isAdmin()) {
-							result = ConfigurationReader
-									.getProperty(ConstantConteiner.ADMIN_PAGE);
+
+							result = new CommandResult(
+									ConfigurationReader.getProperty(
+											ConstantConteiner.ADMIN_PAGE),
+									true);
 						} else {
-							result = ConfigurationReader
-									.getProperty(ConstantConteiner.USER_PAGE);
+
+							result = new CommandResult(ConfigurationReader
+									.getProperty(ConstantConteiner.USER_PAGE),
+									true);
 						}
 					}
 
@@ -56,12 +62,16 @@ public class LogInCommand extends AbstractCommand<UserService> {
 							ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
 							ConfigurationReader.getProperty(
 									ConstantConteiner.INCORRECT_USER_PASSWORD_MSG));
+
+					result = new CommandResult(ConfigurationReader.getProperty(
+							ConstantConteiner.LOGIN_PAGE), true);
 				}
 
 			} catch (DaoException e) {
 
-				result = ConfigurationReader
-						.getProperty(ConstantConteiner.ERROR_PAGE);
+				result = new CommandResult(ConfigurationReader
+						.getProperty(ConstantConteiner.LOGIN_PAGE), true);
+
 				req.setAttribute(
 						ConfigurationReader.getProperty(
 								ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),

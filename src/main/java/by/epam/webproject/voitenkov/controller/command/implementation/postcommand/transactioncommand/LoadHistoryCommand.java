@@ -6,6 +6,7 @@ package by.epam.webproject.voitenkov.controller.command.implementation.postcomma
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.epam.webproject.voitenkov.controller.command.CommandResult;
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
 import by.epam.webproject.voitenkov.model.service.TransactionService;
 import by.epam.webproject.voitenkov.model.service.serviceexception.ServiceLevelException;
@@ -24,23 +25,29 @@ public class LoadHistoryCommand extends AbstractCommand<TransactionService> {
 	}
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) {
+	public CommandResult execute(HttpServletRequest req,
+			HttpServletResponse resp) {
 
-		String nextPage = ConfigurationReader.getProperty(ConstantConteiner.HISTORY_PAGE);
-		
-		try {
-			
-			this.getService().loadHistory(req);
-			
-		} catch (ServiceLevelException e) {
-			
-			req.setAttribute(
-					ConfigurationReader.getProperty(
-							ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
-					e.getMessage());
+		CommandResult result = new CommandResult(
+				ConfigurationReader.getProperty(ConstantConteiner.HISTORY_PAGE),
+				true);
+
+		if (req != null && this.getService() != null) {
+
+			try {
+
+				this.getService().loadHistory(req);
+
+			} catch (ServiceLevelException e) {
+
+				req.setAttribute(
+						ConfigurationReader.getProperty(
+								ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
+						e.getMessage());
+			}
 		}
 		
-		return nextPage;
+		return result;
 	}
 
 }

@@ -34,9 +34,12 @@ public class OutputTransactionFileMaker {
 
 		ObjectOutputStream oStream = null;
 
-		File file = new File(path);
 
 		try {
+
+			File file = new File(path);
+			
+			file.createNewFile();
 
 			FileOutputStream fos = new FileOutputStream(file);
 
@@ -54,6 +57,9 @@ public class OutputTransactionFileMaker {
 
 		} catch (FileNotFoundException e) {
 			logger.error("File not found: " + path);
+			result = false;
+		} catch (IOException e1) {
+			logger.error("Can't creat file: " + path);
 			result = false;
 		} finally {
 

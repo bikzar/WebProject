@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import by.epam.webproject.voitenkov.controller.command.Command;
+import by.epam.webproject.voitenkov.controller.command.CommandResult;
 import by.epam.webproject.voitenkov.model.entity.User;
 import by.epam.webproject.voitenkov.util.ConstantConteiner;
 import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
@@ -16,10 +17,12 @@ import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
 public class ChangeLanguageComand implements Command {
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) {
+	public CommandResult execute(HttpServletRequest req,
+			HttpServletResponse resp) {
 
-		String nextPage = ConfigurationReader
-				.getProperty(ConstantConteiner.USER_PAGE);
+		CommandResult result = new CommandResult(
+				ConfigurationReader.getProperty(ConstantConteiner.USER_PAGE),
+				true);
 
 		if (req != null) {
 
@@ -27,15 +30,14 @@ public class ChangeLanguageComand implements Command {
 					ConfigurationReader.getProperty(ConstantConteiner.USER));
 
 			if (user != null && user.isAdmin()) {
-				nextPage = ConfigurationReader
-						.getProperty(ConstantConteiner.ADMIN_PAGE);
+				result = new CommandResult(ConfigurationReader
+						.getProperty(ConstantConteiner.ADMIN_PAGE), true);
 			}
 
 			req.getSession().setAttribute(ConstantConteiner.LANGUAGE,
 					req.getParameter(ConstantConteiner.LANGUAGE));
 		}
 
-		return nextPage;
+		return result;
 	}
-
 }

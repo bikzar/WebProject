@@ -107,6 +107,8 @@ public class CreditCardServiceImpl implements CreditCardService {
 						cardDAO.save(card);
 
 						putCardListToBankAccList(req, id);
+						
+						result = true;
 					}
 
 				} catch (DaoException e) {

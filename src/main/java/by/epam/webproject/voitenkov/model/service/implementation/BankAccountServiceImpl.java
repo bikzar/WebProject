@@ -94,8 +94,10 @@ public class BankAccountServiceImpl implements BankAccountService {
 	}
 
 	@Override
-	public void loadUnBlockPage(HttpServletRequest req)
+	public boolean loadUnBlockPage(HttpServletRequest req)
 			throws ServiceLevelException {
+
+		boolean result = false;
 
 		if (req != null) {
 
@@ -105,9 +107,15 @@ public class BankAccountServiceImpl implements BankAccountService {
 			if (userIdTmp != null && !userIdTmp.isEmpty()) {
 				long userId = Long.parseLong(userIdTmp);
 
-				getBankAccountList(req, userId);
+				List<BankAccount> list = getBankAccountList(req, userId);
+
+				if (list != null && !list.isEmpty()) {
+					result = true;
+				}
 			}
 		}
+
+		return result;
 	}
 
 	@Override
@@ -159,21 +167,23 @@ public class BankAccountServiceImpl implements BankAccountService {
 			String idTmp = req.getParameter(ConfigurationReader
 					.getProperty(ConstantConteiner.F_BANK_ACCOUNT_ID));
 
-			long id = Integer.parseInt(idTmp);
+			if (idTmp != null && !idTmp.isEmpty()) {
+				long id = Integer.parseInt(idTmp);
 
-			result = accountDAO.updateIsBlockColumnById(id, isLock);
+				result = accountDAO.updateIsBlockColumnById(id, isLock);
 
-			if (result) {
-				List<BankAccount> list = (List)req.getSession()
-						.getAttribute(ConfigurationReader.getProperty(
-								ConstantConteiner.BANK_ACCOUNT_LIST));
-				
-				for(BankAccount acc : list) {
-					if(acc.getAccountId() == id) {
-						if(isLock) {
-							acc.setBlock(true);
-						}else {
-							acc.setBlock(false);
+				if (result) {
+					List<BankAccount> list = (List) req.getSession()
+							.getAttribute(ConfigurationReader.getProperty(
+									ConstantConteiner.BANK_ACCOUNT_LIST));
+
+					for (BankAccount acc : list) {
+						if (acc.getAccountId() == id) {
+							if (isLock) {
+								acc.setBlock(true);
+							} else {
+								acc.setBlock(false);
+							}
 						}
 					}
 				}
@@ -185,11 +195,13 @@ public class BankAccountServiceImpl implements BankAccountService {
 
 	private List<BankAccount> getBankAccountList(HttpServletRequest req,
 			long userId) throws ServiceLevelException {
+
 		List<BankAccount> list = null;
+
 		try {
 			List<BankAccount> accountList = accountDAO.getAll(userId);
 
-			if (!accountList.isEmpty()) {
+			if (accountList != null && !accountList.isEmpty()) {
 				for (BankAccount account : accountList) {
 					if (account != null) {
 
@@ -208,6 +220,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 			throw new ServiceLevelException(ConfigurationReader
 					.getProperty(ConstantConteiner.SOME_PROBLEM_MSG));
 		}
+
 		return list;
 	}
 

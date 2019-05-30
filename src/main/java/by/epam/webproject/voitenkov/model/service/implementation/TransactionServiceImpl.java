@@ -36,6 +36,7 @@ import by.epam.webproject.voitenkov.util.validator.Validator;
 public class TransactionServiceImpl implements TransactionService {
 
 	private static final DAOFactory DAO_FACTORY = DAOFactory.getInstance();
+	private static final String numberRegex = "^\\d*\\.?\\d*";
 
 	private static TransactionDAOImpl transactionDAO = DAO_FACTORY
 			.getTransactionDAO();
@@ -60,6 +61,8 @@ public class TransactionServiceImpl implements TransactionService {
 	public boolean payOperation(HttpServletRequest request)
 			throws ServiceLevelException {
 
+		boolean result = false;
+
 		if (request != null) {
 
 			String destinationBankAccountIdTmp = request
@@ -69,8 +72,10 @@ public class TransactionServiceImpl implements TransactionService {
 			String sourceCardIdTmp = request.getParameter(ConfigurationReader
 					.getProperty(ConstantConteiner.F_CREDIT_CARD_ID));
 
-			if (destinationBankAccountIdTmp != null
-					&& sourceCardIdTmp != null) {
+			if (destinationBankAccountIdTmp != null && sourceCardIdTmp != null
+					&& !destinationBankAccountIdTmp.isEmpty()
+					&& !sourceCardIdTmp.isEmpty()
+					&& destinationBankAccountIdTmp.matches(numberRegex)) {
 
 				long destinationBankAccountId = Long
 						.parseLong(destinationBankAccountIdTmp);
@@ -78,6 +83,11 @@ public class TransactionServiceImpl implements TransactionService {
 				long sourceCardId = Long.parseLong(sourceCardIdTmp);
 
 				double sum = getSum(request);
+
+				if (destinationBankAccountId < 0 || sum <= 0) {
+					throw new ServiceLevelException(ConfigurationReader
+							.getProperty(ConstantConteiner.INCORRECT_DATA_MSG));
+				}
 
 				try {
 
@@ -106,8 +116,7 @@ public class TransactionServiceImpl implements TransactionService {
 					}
 
 					if (Validator.validateTransaction(sourceBankAccount,
-							destinationAccount, sum)
-							&& Validator.validateSum(sum)) {
+							destinationAccount, sum)) {
 
 						LocalDateTime dateTime = LocalDateTime.now();
 
@@ -139,6 +148,8 @@ public class TransactionServiceImpl implements TransactionService {
 						makeTransaction(sourceBankAccount, destinationAccount,
 								sum);
 
+						result = true;
+
 					} else {
 
 						throw new ServiceLevelException(
@@ -154,10 +165,14 @@ public class TransactionServiceImpl implements TransactionService {
 							.getProperty(ConstantConteiner.SOME_PROBLEM_MSG));
 				}
 
+			} else {
+
+				throw new ServiceLevelException(ConfigurationReader
+						.getProperty(ConstantConteiner.INCORRECT_DATA_MSG));
 			}
 		}
 
-		return false;
+		return result;
 	}
 
 	@Override
@@ -244,7 +259,17 @@ public class TransactionServiceImpl implements TransactionService {
 				CreditCard[] cardList = Maker.getCreditCardArray(request,
 						cardDAO);
 
+				if (cardList == null) {
+					throw new ServiceLevelException(ConfigurationReader
+							.getProperty(ConstantConteiner.INCORRECT_DATA_MSG));
+				}
+
 				double sum = getSum(request);
+
+				if (sum <= 0) {
+					throw new ServiceLevelException(ConfigurationReader
+							.getProperty(ConstantConteiner.INCORRECT_DATA_MSG));
+				}
 
 				double transactionSum = Calculator
 						.getTransactionSum(cardList[0], cardList[1], sum);
@@ -312,6 +337,10 @@ public class TransactionServiceImpl implements TransactionService {
 									dateTime);
 					transactionDAO.save(sourceToDestinationTransaction);
 					transactionList.add(sourceToDestinationTransaction);
+
+					request.getSession().setAttribute(
+							ConstantConteiner.IS_SUCCESS_ATTRIB, true);
+					result = true;
 				}
 
 			} catch (DaoException e) {
@@ -321,6 +350,9 @@ public class TransactionServiceImpl implements TransactionService {
 
 				logger.error(
 						"Exception in makeReplenishOperation() methood in TransactionServiceImpl class");
+
+				request.getSession().setAttribute(
+						ConstantConteiner.IS_SUCCESS_ATTRIB, false);
 
 				throw new ServiceLevelException(ConfigurationReader
 						.getProperty(ConstantConteiner.SOME_PROBLEM_MSG));
@@ -566,7 +598,8 @@ public class TransactionServiceImpl implements TransactionService {
 			String sumTmp = request.getParameter(
 					ConfigurationReader.getProperty(ConstantConteiner.SUM));
 
-			if (sumTmp != null && !sumTmp.isEmpty()) {
+			if (sumTmp != null && !sumTmp.isEmpty()
+					&& sumTmp.matches(numberRegex)) {
 
 				result = Double.parseDouble(sumTmp);
 			}

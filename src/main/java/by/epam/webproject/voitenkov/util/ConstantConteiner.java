@@ -17,18 +17,21 @@ public class ConstantConteiner {
 	public static final String GO_TO_LOGIN_PAGE = "GoToLogInPage";
 	public static final String LOGIN_COMMAND = "Login";
 	public static final String COMMAND = "Command";
+	public static final String GO_REGISTRATION_COMMAND = "Registration_Page";
+	public static final String DEFAULT_COMMAND = "DefaultCommand";
 	
 //-----------------------------------------------------------------------------
 
 	// Path
 	public static final String PATH_TO_INDEX_FOR_REDIRECT = "start";
 	public static final String PATH_TO_USER_PAGE_REDIRECT = "start/JSP/UserPage.jsp";
+	public static final String GO_REGISTRATION_PAGE = "RegistrationPage";
 	public static final String BANK_ACCOUNT_DETAILS_PAGE = "BankAccountDetailsPage";
 	public static final String RIGHT_PAHT_FOR_REENTER = "RightReEnterPath";
-	public static final String GO_REGISTRATION_PAGE = "RegistrationPage";
 	public static final String GO_TO_REPLANISH_PAGE = "GoToReplanishPage";
-	public static final String UNBLOCK_CARD_PAGE = "UnBlockCardPage";
+	public static final String UNLOCK_CARD_PAGE = "UnlockCardPage";
 	public static final String GO_TO_PAY_PAGE = "GoToPayPage";
+	public static final String GO_RESULT_PAGE = "GoResultPage";
 	public static final String DEFAULT_PAGE = "DefaultPage";
 	public static final String HISTORY_PAGE = "HistoryPage";
 	public static final String SEARCH_PAGE = "SearchPage";
@@ -141,6 +144,7 @@ public class ConstantConteiner {
 	// Error message
 	public static final String INCORRECT_USER_PASSWORD_MSG = "IncorrectUserPassword";
 	public static final String DUPLICATE_USER_IN_DB_MSG = "DuplicateUserInDB";
+	public static final String DUPLICATE_USER_LOGIN_MSG = "DuplicateUserLogin";
 	public static final String CANT_LOAD_PAY_FORM_MSG = "CantLoadPayForm";
 	public static final String PAY_OPERATON_FAIL_MSG = "PayOperationFail";
 	public static final String CANT_LOAD_HISTORY_MSG = "CantLoadHistory";
@@ -155,6 +159,13 @@ public class ConstantConteiner {
 	public static final String CANT_LOCK_MSG = "Cantlock";
 	public static final String CANT_DELETE_MSG = "CantDelete";
 	
+	public static final String INVALID_NAME_MSG = "InvalidName";
+	public static final String INVALID_SECONDNAME_MSG = "InvalidSecondName";
+	public static final String INVALID_PASSWORD_MSG = "InvalidPassword";
+	public static final String INVALID_BDATE_MSG = "InvalidBirthDate";
+	public static final String INVALID_LOGIN_MSG = "InvalidLogin";
+	
+	
 //-----------------------------------------------------------------------------
 
 	// General constant
@@ -165,16 +176,25 @@ public class ConstantConteiner {
 	public static final String URL_REGEX_FIRST_ENTER = "UrlRegexFirstEnter";
 	public static final String TRANSACTION_COMMISION = "TransactionCommision";
 	public static final String IS_AFTER_CALCULATION = "IsAfterCalculation";
+	public static final String SIMPLE_TEXT_PATTERN = "SimpleTextPattern";
 	public static final String SERIALIZATION_PATH = "SerializationPath";
 	public static final String DATE_TIME_PATTERN = "DateTimePattern";
+	public static final String IS_SUCCESS_ATTRIB = "isSuccess";
+	public static final String PASSWORD_PATTERN = "PasswordPattern";
+	public static final String IS_AFTER_COMMAND = "isAfterCommand";
 	public static final String TRANSACTION_SUM = "TransactionSum";
 	public static final String SALE_BYN_CONST = "saleBYN/";
+	public static final String LOGGIN_PATTERN = "LoginPattern";
+	public static final String MAX_HUMAN_LIFE = "MaxHumanLife";
+	public static final String COMING_OF_AGE = "ComingOfAge";
 	public static final String CONTENT_REGEX = "ContentRegex";
 	public static final String BUY_BYN_CONST = "buyBYN/";
+	public static final String ERROR_LIST = "errorList";
 	public static final String EN_LOCALE = "en";
 	public static final String RU_LOCALE = "ru";
 	public static final String LANGUAGE = "language";
 	public static final String SUM = "Sum";
+	
 
 //-----------------------------------------------------------------------------
 

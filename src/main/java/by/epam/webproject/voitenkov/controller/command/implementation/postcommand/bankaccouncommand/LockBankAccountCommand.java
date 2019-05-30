@@ -3,6 +3,7 @@ package by.epam.webproject.voitenkov.controller.command.implementation.postcomma
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.epam.webproject.voitenkov.controller.command.CommandResult;
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
 import by.epam.webproject.voitenkov.model.service.BankAccountService;
 import by.epam.webproject.voitenkov.model.service.serviceexception.ServiceLevelException;
@@ -22,23 +23,26 @@ public class LockBankAccountCommand
 	}
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) {
+	public CommandResult execute(HttpServletRequest req,
+			HttpServletResponse resp) {
+
+		CommandResult result = new CommandResult(ConfigurationReader
+				.getProperty(ConstantConteiner.UNLOCK_CARD_PAGE), true);
 		
-		String nextPage = ConfigurationReader
-				.getProperty(ConstantConteiner.UNBLOCK_CARD_PAGE);
+		if (req != null && this.getService() != null) {
 
-		try {
+			try {
 
-			this.getService().lockBankAccount(req);
+				this.getService().lockBankAccount(req);
 
-		} catch (ServiceLevelException e) {
+			} catch (ServiceLevelException e) {
 
-			req.setAttribute(
-					ConfigurationReader.getProperty(
-							ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
-					e.getMessage());
+				req.setAttribute(
+						ConfigurationReader.getProperty(
+								ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
+						e.getMessage());
+			}
 		}
-
-		return nextPage;
+		return result;
 	}
 }

@@ -3,6 +3,7 @@ package by.epam.webproject.voitenkov.controller.command.implementation.postcomma
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.epam.webproject.voitenkov.controller.command.CommandResult;
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
 import by.epam.webproject.voitenkov.model.service.BankAccountService;
 import by.epam.webproject.voitenkov.model.service.serviceexception.ServiceLevelException;
@@ -22,14 +23,15 @@ public class LoadUnBlockPageCommand
 	}
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) {
+	public CommandResult execute(HttpServletRequest req,
+			HttpServletResponse resp) {
 
-		String nextPage = null;
+		CommandResult result = null;
 
-		if (req != null) {
-			
-			nextPage = ConfigurationReader
-					.getProperty(ConstantConteiner.UNBLOCK_CARD_PAGE);
+		if (req != null && this.getService() != null) {
+
+			result = new CommandResult(ConfigurationReader
+					.getProperty(ConstantConteiner.UNLOCK_CARD_PAGE), true);
 
 			try {
 
@@ -44,7 +46,7 @@ public class LoadUnBlockPageCommand
 			}
 		}
 
-		return nextPage;
+		return result;
 	}
 
 }

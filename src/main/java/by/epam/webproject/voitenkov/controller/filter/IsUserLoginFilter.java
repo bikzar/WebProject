@@ -49,10 +49,13 @@ public class IsUserLoginFilter implements Filter {
 		String logInComand = ConfigurationReader
 				.getProperty(ConstantConteiner.LOGIN_COMMAND);
 
-		String goToRegPageCommand = ConstantConteiner.GO_REGISTRATION_PAGE;
+		String goToRegPageCommand = ConstantConteiner.GO_REGISTRATION_COMMAND;
 
 		String registrationCommand = ConfigurationReader
 				.getProperty(ConstantConteiner.REGISTRATION_COMMAND);
+
+		String defaultCommand = ConfigurationReader
+				.getProperty(ConstantConteiner.DEFAULT_COMMAND);
 
 		String currentCommand = req.getParameter(
 				ConfigurationReader.getProperty(ConstantConteiner.COMMAND));
@@ -62,7 +65,8 @@ public class IsUserLoginFilter implements Filter {
 		if (currentCommand != null) {
 			isCommand = currentCommand.equalsIgnoreCase(registrationCommand)
 					|| currentCommand.equalsIgnoreCase(goToRegPageCommand)
-					|| currentCommand.equalsIgnoreCase(logInComand);
+					|| currentCommand.equalsIgnoreCase(logInComand)
+					|| currentCommand.equalsIgnoreCase(defaultCommand);
 		}
 
 		HttpSession session = req.getSession(false);
@@ -79,12 +83,17 @@ public class IsUserLoginFilter implements Filter {
 
 				User user = (User) session.getAttribute(ConfigurationReader
 						.getProperty(ConstantConteiner.USER));
+
 				if (!user.isAdmin()) {
 
 					req.getRequestDispatcher(ConfigurationReader
 							.getProperty(ConstantConteiner.USER_PAGE))
 							.forward(request, response);
-					;
+				} else {
+
+					req.getRequestDispatcher(ConfigurationReader
+							.getProperty(ConstantConteiner.ADMIN_PAGE))
+							.forward(request, response);
 				}
 
 			} else {

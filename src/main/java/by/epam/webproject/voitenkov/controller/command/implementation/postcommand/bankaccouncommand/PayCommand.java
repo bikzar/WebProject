@@ -3,6 +3,7 @@ package by.epam.webproject.voitenkov.controller.command.implementation.postcomma
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import by.epam.webproject.voitenkov.controller.command.CommandResult;
 import by.epam.webproject.voitenkov.controller.command.implementation.AbstractCommand;
 import by.epam.webproject.voitenkov.model.service.TransactionService;
 import by.epam.webproject.voitenkov.model.service.serviceexception.ServiceLevelException;
@@ -21,27 +22,34 @@ public class PayCommand extends AbstractCommand<TransactionService> {
 	}
 
 	@Override
-	public String execute(HttpServletRequest req, HttpServletResponse resp) {
+	public CommandResult execute(HttpServletRequest req,
+			HttpServletResponse resp) {
 
-		String nextPage = ConfigurationReader
-				.getProperty(ConstantConteiner.USER_PAGE);
+		CommandResult result = new CommandResult(ConfigurationReader
+				.getProperty(ConstantConteiner.GO_RESULT_PAGE), true);
 
-		try {
-		
-			this.getService().payOperation(req);
+		if (req != null && this.getService() != null) {
 
-		} catch (ServiceLevelException e) {
+			try {
 
-			nextPage = ConfigurationReader
-					.getProperty(ConstantConteiner.ERROR_PAGE);
+				if (this.getService().payOperation(req)) {
+					req.getSession().setAttribute(
+							ConstantConteiner.IS_SUCCESS_ATTRIB, true);
+					result.setForvardAction(false);
+					result.setPath("start?command=go_to_result_page");
+				}
 
-			req.setAttribute(
-					ConfigurationReader.getProperty(
-							ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
-					e.getMessage());
+			} catch (ServiceLevelException e) {
 
+				result.setPath(ConfigurationReader
+						.getProperty(ConstantConteiner.GO_TO_PAY_PAGE));
+
+				req.setAttribute(
+						ConfigurationReader.getProperty(
+								ConstantConteiner.REQUEST_ERROR_ATTRIBUTE_NAME),
+						e.getMessage());
+			}
 		}
-		
-		return nextPage;
+		return result;
 	}
 }

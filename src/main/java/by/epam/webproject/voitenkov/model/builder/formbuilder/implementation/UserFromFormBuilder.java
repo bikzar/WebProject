@@ -1,20 +1,21 @@
 package by.epam.webproject.voitenkov.model.builder.formbuilder.implementation;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-
+import by.epam.webproject.voitenkov.model.builder.builderexception.CantBuildException;
 import by.epam.webproject.voitenkov.model.builder.formbuilder.FromFormBuilder;
+import by.epam.webproject.voitenkov.model.dal.dao.daoexception.DaoException;
 import by.epam.webproject.voitenkov.model.entity.BankAccount;
 import by.epam.webproject.voitenkov.model.entity.User;
 import by.epam.webproject.voitenkov.util.ConstantConteiner;
+import by.epam.webproject.voitenkov.util.Encoder;
 import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
+import by.epam.webproject.voitenkov.util.validator.user.UserValidator;
 
 /**
  * @author Sergey Voitenkov
@@ -23,13 +24,12 @@ import by.epam.webproject.voitenkov.util.propertieshandling.ConfigurationReader;
  */
 public class UserFromFormBuilder implements FromFormBuilder<User> {
 
-	private static Logger logger = LogManager.getFormatterLogger();
-
 	/**
 	 * @return User object without userId and empty bankAccountList.
+	 * @throws CantBuildException
 	 */
 	@Override
-	public User build(HttpServletRequest req) {
+	public User build(HttpServletRequest req) throws CantBuildException {
 
 		long userId = 0;
 		String name = null;
@@ -38,53 +38,68 @@ public class UserFromFormBuilder implements FromFormBuilder<User> {
 		boolean isAdmin = false;
 		String login = null;
 		String password = null;
+		List<String> list = new ArrayList<String>();
 		ArrayList<BankAccount> bankAccountList = new ArrayList<BankAccount>();
 
 		if (req != null) {
 
-			try {
+			HttpSession session = req.getSession();
 
-				String temp;
+			name = Encoder.encodeToUTF8(req.getParameter(ConfigurationReader
+					.getProperty(ConstantConteiner.F_USER_NAME)));
+			
+			session.setAttribute(ConfigurationReader
+					.getProperty(ConstantConteiner.F_USER_NAME), name);
 
-				temp = req.getParameter(ConfigurationReader
-						.getProperty(ConstantConteiner.F_USER_NAME));
+			secondName = Encoder.encodeToUTF8(
+					req.getParameter(ConfigurationReader.getProperty(
+							ConstantConteiner.F_USER_SECOND_NAME)));
+			
+			session.setAttribute(ConfigurationReader
+					.getProperty(ConstantConteiner.F_USER_SECOND_NAME), secondName);
 
-				name = encodeString(temp);
+			login = Encoder.encodeToUTF8(req.getParameter(ConfigurationReader
+					.getProperty(ConstantConteiner.F_LOGIN)));
 
-				temp = req.getParameter(ConfigurationReader
-						.getProperty(ConstantConteiner.F_USER_SECOND_NAME));
+			session.setAttribute(ConfigurationReader
+					.getProperty(ConstantConteiner.F_LOGIN), login);
+			
+			password = Encoder.encodeToUTF8(req.getParameter(ConfigurationReader
+					.getProperty(ConstantConteiner.F_PASSWORD)));
+			
+			session.setAttribute(ConfigurationReader
+					.getProperty(ConstantConteiner.F_PASSWORD), password);
 
-				secondName = encodeString(temp);
+			String bDateTemp = req.getParameter(ConfigurationReader
+					.getProperty(ConstantConteiner.F_BIRTH_DATE));
+			
+			session.setAttribute(ConfigurationReader
+					.getProperty(ConstantConteiner.F_BIRTH_DATE), bDateTemp);
 
-				temp = req.getParameter(ConfigurationReader
-						.getProperty(ConstantConteiner.F_LOGIN));
+			if (bDateTemp != null && !bDateTemp.isEmpty()) {
 
-				login = encodeString(temp);
-
-				temp = req.getParameter(ConfigurationReader
-						.getProperty(ConstantConteiner.F_PASSWORD));
-
-				password = encodeString(temp);
-				
-				birthDate = LocalDate.parse(req.getParameter(ConfigurationReader
-						.getProperty(ConstantConteiner.F_BIRTH_DATE)));
-
-			} catch (UnsupportedEncodingException e) {
-				logger.warn(
-						"Try to encode in build() methood UserFromFormBuilder class. Unknown encoding: "
-								+ ConstantConteiner.UTF_8_ENCODING);
+				birthDate = LocalDate.parse(bDateTemp);
 			}
 
+			try {
 
+				list = UserValidator.validateUserParameters(name, secondName,
+						login, password, birthDate);
+
+				if (!list.isEmpty()) {
+
+					req.setAttribute(ConstantConteiner.ERROR_LIST, list);
+
+					throw new CantBuildException();
+				}
+
+			} catch (DaoException e) {
+				throw new CantBuildException(e.getMessage());
+			}
 		}
 
 		return new User(userId, name, secondName, birthDate, isAdmin, login,
 				password, bankAccountList);
-	}
 
-	private String encodeString(String text)
-			throws UnsupportedEncodingException {
-		return new String(text.getBytes(StandardCharsets.ISO_8859_1),
-				ConstantConteiner.UTF_8_ENCODING);
 	}
 }
