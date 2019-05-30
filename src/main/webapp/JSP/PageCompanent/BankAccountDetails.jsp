@@ -67,7 +67,7 @@
 								</c:if>
 
 								<c:if test="${!creditCard.isBlock()}">
-									<input type="hidden" name="command" value="blockCard"/>
+									<input type="hidden" name="command" value="lock_Card"/>
 									<button type="submit" class="lockUnlockButt" style="background-color: green;">
 										<fmt:message key="adminpage.search.unlock" />
 									</button>

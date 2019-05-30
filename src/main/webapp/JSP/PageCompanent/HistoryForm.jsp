@@ -17,7 +17,7 @@
 
 		<form action="start" method="post">
 
-			<input id="command" type="hidden" name="command" value="loadPayHistory" /> 
+			<input id="command" type="hidden" name="command" value="load_Pay_History" /> 
 				
 				<c:set var="isSelect" value="" scope="page"></c:set>
 				

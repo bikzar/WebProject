@@ -15,8 +15,8 @@
 		<c:forEach items="${sessionScope.bankAccountList}" var="bankAccount">
 			<li>
 				<form action="start" method="post">
-					<input id="command" type="hidden" name="command" value="loadBankAccount" /> 
-					<input id="command" type="hidden" name="accountID" value="${bankAccount.getAccountId()}" />
+					<input id="command" type="hidden" name="command" value="load_Bank_Account" /> 
+					<input type="hidden" name="accountID" value="${bankAccount.getAccountId()}" />
 					<input type="submit" class="AccountButton" value="${bankAccount.getAccountId()} (${bankAccount.getCurrencyType()})" />
 				</form>
 			</li>
@@ -28,14 +28,14 @@
 		
 		<li>
 			<form action="start" method="post">
-				<input id="command" type="hidden" name="command" value="goToPayPage" /> 
+				<input id="command" type="hidden" name="command" value="go_To_Pay_Page" /> 
 				<input type="submit" class="AccountButton" value="<fmt:message key="userpage.Operation.Pay" />" />
 			</form>
 		</li>
 		
 		<li>
 			<form action="start" method="post">
-				<input id="command" type="hidden" name="command" value="goToReplenishPage" /> 
+				<input id="command" type="hidden" name="command" value="go_To_Replenish_Page" /> 
 				<input type="submit" class="AccountButton" value="<fmt:message key="userpage.Operation.AddMoney" />" />
 			</form>
 		</li>
@@ -46,7 +46,7 @@
 		
 		<li>
 			<form action="start" method="post">
-				<input id="command" type="hidden" name="command" value="goToPaymentHistory" /> 
+				<input id="command" type="hidden" name="command" value="go_To_Payment_History" /> 
 				<input type="submit" class="AccountButton" value="<fmt:message key="userpage.OperationHistory.loadPayHistory"/>" />
 			</form>
 		</li>

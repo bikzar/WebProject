@@ -14,7 +14,7 @@
 		
 		<li>
 			<form action="start" method="post">
-				<input id="command" type="hidden" name="command" value="loadSearchForm" /> 
+				<input id="command" type="hidden" name="command" value="load_Search_Form" /> 
 				<input type="submit" class="AccountButton" value="<fmt:message key="adminpage.findUserCard" />" />
 			</form>
 		</li>

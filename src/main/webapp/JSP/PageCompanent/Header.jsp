@@ -12,20 +12,17 @@
 	<div class="headerText">
 		<div class="russian">
 			<form action="start" method="post">
-				<input name="command" value="changeLocale" type="hidden">
+				<input name="command" value="change_Locale" type="hidden">
 				<input name="language" value="ru" type="hidden">
 				<input type="submit" class="AccountButton" value="RU  |"/>
 			</form>
 		</div>
 		<div class="english">
 			<form action="start" method="post">
-				<input name="command" value="changeLocale" type="hidden">
+				<input name="command" value="change_Locale" type="hidden">
 				<input name="language" value="en" type="hidden">
-				<input type="submit" class="AccountButton" value="EN  |"/>
+				<input type="submit" class="AccountButton" value="EN"/>
 			</form>
-		</div>
-		<div class="aboutProject">
-			<input type="submit" class="AccountButton" value="<fmt:message key="userpage.header.about" />"/>
 		</div>
 	</div>
 
@@ -36,8 +33,7 @@
 		<ul class="menu2">
 			<li><a href=#><div class="profilebutton"></div></a>
 				<ul class="submenu">
-					<li><a href=#><fmt:message key="userpage.header.myprofile" /></a></li>
-					<li><a href=start?command=logout><fmt:message key="userpage.header.LogOut" /></a></li>
+					<li><a href=start?command=log_out><fmt:message key="userpage.header.LogOut" /></a></li>
 				</ul></li>
 		</ul>
 	</div>

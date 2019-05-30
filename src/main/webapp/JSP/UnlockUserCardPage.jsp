@@ -6,13 +6,8 @@
 <html dir="ltr">
 	<head>
 		<meta charset="utf-8">
-		<title>Account</title>
+		<title>Admin Page</title>
 		<link rel="stylesheet" type="text/css" href="CSS/StylesS.css">
-		<script>
-			function changeCommandValue() {
-				document.getElementById('ReplenishCommand').value = 'Calculate_Commission';
-			}
-		</script>
 	</head>
 	<body>
 		
@@ -20,12 +15,13 @@
 		
 			<c:import url="./PageCompanent/Header.jsp"></c:import>
 			
-			<c:import url="./PageCompanent/LeftMenu.jsp"></c:import>
+			<c:import url="./PageCompanent/AdminLeftMenu.jsp"></c:import>
 			
-			<c:import url="./PageCompanent/ReplenishForm.jsp"></c:import>
+			<c:import url="./PageCompanent/UnBlockForm.jsp"></c:import>
 	
 		</div>
 		
 		<c:import url="./PageCompanent/Footer.jsp"></c:import>
+	
 	</body>
 </html>

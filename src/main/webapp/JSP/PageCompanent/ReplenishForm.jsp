@@ -20,7 +20,7 @@
 		<form action="start" method="post">
 
 			<input id="ReplenishCommand" type="hidden" name="command"
-				value="replenishAccount" />
+				value="replenish_Account" />
 
 			<div class="Pay-flex-container">
 

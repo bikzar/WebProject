@@ -64,6 +64,6 @@
 			</button>
 
 		</form>
-
+		<font size="2" color="red">${message}</font>
 	</div>
 </div>

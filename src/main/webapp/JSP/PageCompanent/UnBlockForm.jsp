@@ -35,14 +35,14 @@
 								<input type="hidden" name="accountID"	value="${bankAccount.getAccountId()}" />
 								
 								<c:if test="${bankAccount.isBlock()}">
-									<input type="hidden" name="command" value="unLockAccount" /> 
+									<input type="hidden" name="command" value="unLock_Account" /> 
 									<button type="submit" class="lockUnlockButt" style="background-color: red;"> 
 										<fmt:message key="adminpage.search.lock" />
 									</button>
 								</c:if>
 
 								<c:if test="${!bankAccount.isBlock()}">
-									<input type="hidden" name="command" value="lockAccount" /> 
+									<input type="hidden" name="command" value="lock_Account" /> 
 									<button type="submit" class="lockUnlockButt"	style="background-color: green;">
 										<fmt:message key="adminpage.search.unlock" />
 									</button>
@@ -54,7 +54,7 @@
 					<td align="center" class="line">
 						<form action="start" method="post">
 							<input type="hidden" name="accountID" value="${bankAccount.getAccountId()}" />
-							<input type="hidden" name="command" value="addCard" /> 
+							<input type="hidden" name="command" value="add_Card" /> 
 							<button type="submit" class="addCardButton">+<fmt:message key="userpage.BankAccount.addNew" /></button>
 						</form>
 					</td>
@@ -70,14 +70,14 @@
 										<input type="hidden" name="cardId"	value="${creditCard.getCreditCardId()}" />
 										
 										<c:if test="${creditCard.isBlock()}">
-											<input type="hidden" name="command" value="unLockCard" /> 
+											<input type="hidden" name="command" value="unLock_Card" /> 
 											<button type="submit" class="lockUnlockButt" style="background-color: red;"> 
 												<fmt:message key="adminpage.search.lock" />
 											</button>
 										</c:if>
 
 										<c:if test="${!creditCard.isBlock()}">
-											<input type="hidden" name="command" value="blockCard" /> 
+											<input type="hidden" name="command" value="lock_Card" /> 
 											<button type="submit" class="lockUnlockButt"	style="background-color: green;">
 												<fmt:message key="adminpage.search.unlock" />
 											</button>
@@ -98,7 +98,7 @@
 								<form action="start" method="post" class="blockForm">
 									
 									<input type="hidden" name="cardId"	value="${creditCard.getCreditCardId()}" />
-									<input type="hidden" name="command" value="deleteCard" /> 
+									<input type="hidden" name="command" value="delete_Card" /> 
 									
 									<button type="submit" class="deleteButt" style="background-color: red;">
 										<fmt:message key="adminpage.search.delete" />

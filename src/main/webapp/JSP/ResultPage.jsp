@@ -8,11 +8,6 @@
 		<meta charset="utf-8">
 		<title>Account</title>
 		<link rel="stylesheet" type="text/css" href="CSS/StylesS.css">
-		<script>
-			function changeCommandValue() {
-				document.getElementById('ReplenishCommand').value = 'Calculate_Commission';
-			}
-		</script>
 	</head>
 	<body>
 		
@@ -22,10 +17,11 @@
 			
 			<c:import url="./PageCompanent/LeftMenu.jsp"></c:import>
 			
-			<c:import url="./PageCompanent/ReplenishForm.jsp"></c:import>
+			<c:import url="./PageCompanent/Result.jsp"></c:import>
 	
 		</div>
 		
 		<c:import url="./PageCompanent/Footer.jsp"></c:import>
+	
 	</body>
 </html>

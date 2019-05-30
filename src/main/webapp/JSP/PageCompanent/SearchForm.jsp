@@ -15,7 +15,7 @@
 	
 	<form action="start" method="post">
 		
-		<input type="hidden" name="command" value="findUser">
+		<input type="hidden" name="command" value="find_User">
 	
 		<table border="1" class="searchTable">
 			<tr>
@@ -63,7 +63,7 @@
 				<td>
 					<form action="start" method="post">
 						<input type="hidden" name="userID" value="${user.getUserId()}">
-						<input type="hidden" name="command" value="loadUnBlockPage">
+						<input type="hidden" name="command" value="load_Unlock_Page">
 						<input type="submit" class="choisUserButt" value="<fmt:message key="adminpage.detail" />">
 					</form>
 				</td>

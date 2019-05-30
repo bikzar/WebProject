@@ -15,7 +15,8 @@
 	<link rel="stylesheet" href="CSS/StylesS.css">
 	<script>
 		function changeCommandValue() {
-			document.getElementById('command').value = 'RegistrationPage';
+			var elem = document.getElementById('newCommand');
+			elem.value = 'Registration_Page';
 		}
 	</script>
 </head>
@@ -24,9 +25,10 @@
 		<table>
 			<tr>
 				<td>
-					<form class="login" id="userLogin" name="LoginForm"
-						action="start" method="POST">
-						<input id="command" type="hidden" name="command" value="login" />
+					<form class="login" id="userLogin" name="LoginForm"	action="start" method="POST">
+					
+						<input id="newCommand" type="hidden" name="command" value="login" />
+						
 						<table>
 							<tr>
 								<td><font color="#000000"><fmt:message key="login.login" />:</font></td>
